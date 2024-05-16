@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const allPosts = await Astro.glob('/src/pages/posts/*.md')
+---
+
+<Layout title="Welcome">
+	<main class="relative justify-center mt-[-2rem]">
+		<div class="flex justify-center">
+			<h1 class="absolute text-[10rem] z-[-20]">RiceL123's Blog</h1>
+			<img class="z-[-10]" src="/src/images/hero.png" alt="hero png">
+		</div>
+
+		<div class="grid grid-cols-4 gap-4 mt-[-10rem] px-5">
+			{allPosts.map((post) => 
+				<div class="bg-lime-400 rounded">
+					<a href={post.url} class="rounded">
+						<img class="object-none" src="https://i.ytimg.com/vi/0Lr7d21sDGM/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLBWejGM9lZjL0CjLoxputOwFk-YbA" alt="default img">
+						<h2>{post.frontmatter.title}</h2>
+					</a>
+				</div>
+			)}
+		</div>
+
+	</main>
+</Layout>
