@@ -1,0 +1,80 @@
+<canvas id="laptopPhoneChart"></canvas>
+<script>
+  import { Chart, LineController } from "chart.js";
+
+  Chart.register(LineController);
+
+  function getRandomNumberTo1Dec(min, max) {
+    return Math.round((Math.random() * (max - min) + min) * 10) / 10;
+  }
+
+  const datasetPhone = Array(15)
+    .fill(0)
+    .map((_) => getRandomNumberTo1Dec(4, 9))
+    .concat(
+      Array(15)
+        .fill(0)
+        .map((_) => getRandomNumberTo1Dec(0.7, 6.5))
+    );
+  const datasetLaptop = Array(15)
+    .fill(0)
+    .map((_) => getRandomNumberTo1Dec(2.5, 7.5))
+    .concat(
+      Array(15)
+        .fill(0)
+        .map((_) => getRandomNumberTo1Dec(4, 10.5))
+    );
+  const datasetTotal = datasetPhone.map((x, i) => x + datasetLaptop[i]);
+  document.addEventListener("DOMContentLoaded", () => {
+    const chartElement = document.getElementById(
+      "laptopPhoneChart"
+    ) as HTMLCanvasElement;
+    if (!chartElement) {
+      return;
+    }
+    const ctx = chartElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [...Array(30).keys()],
+        datasets: [
+          {
+            label: "phone screen time",
+            data: datasetPhone,
+            borderColor: "rgb(255, 99, 132)",
+            pointRadius: 0,
+          },
+          {
+            label: "laptop screen time",
+            data: datasetLaptop,
+            borderColor: "rgb(255, 159, 64)",
+            pointRadius: 0,
+          },
+          // {
+          //   label: "total screen time",
+          //   data: datasetTotal,
+          //   borderColor: "rgb(255, 205, 86)",
+          //   pointRadius: 0,
+          // },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            title: {
+              text: "screen time (h)",
+              display: true,
+            },
+          },
+          x: {
+            display: false,
+          },
+        },
+      },
+    });
+  });
+</script>

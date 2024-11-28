@@ -1,0 +1,80 @@
+<canvas id="multiLineChart"></canvas>
+<script>
+  import {
+    Chart,
+    CategoryScale,
+    Legend,
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    Tooltip,
+  } from "chart.js";
+  Chart.register(
+    Legend,
+    CategoryScale,
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    Tooltip
+  );
+  
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const chartElement = document.getElementById(
+      "multiLineChart"
+    ) as HTMLCanvasElement;
+    if (!chartElement) {
+      return;
+    }
+    const ctx = chartElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [1, 2, 3, 4, 5, 6, 7],
+        datasets: [
+          {
+            label: "next to bed",
+            data: [5.2, 7.2, 3.5, 6.2, 6.4, 5.9, 5.2],
+            borderColor: "rgb(255, 99, 132)",
+          },
+          {
+            label: "other side of bedroom",
+            data: [6.0, 4.0, 6.9, 5.3, 2.9, 5.3, 6.8],
+            borderColor: "rgb(255, 159, 64)",
+          },
+          {
+            label: "outside of bedroom same level",
+            data: [3.2, 3.3, 4.7, 2.5, 5.0, 2.9, 3.4],
+            borderColor: "rgb(255, 205, 86)",
+          },
+          {
+            label: "outside of bedroom different level",
+            data: [1.9, 2.5, 5.0, 3.7, 2.7, 2.9, 3.8],
+            borderColor: "rgb(75, 192, 192)",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Days",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "screen time (h)",
+            },
+          },
+        },
+      },
+    });
+  });
+</script>

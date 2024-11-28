@@ -1,0 +1,13 @@
+---
+const { title, headings } = Astro.props;
+console.log(title);
+console.log(headings);
+---
+
+<div>
+  TOC
+  <div>{title}</div>
+  <div>
+    {headings}
+  </div>
+</div>

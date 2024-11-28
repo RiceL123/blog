@@ -1,0 +1,63 @@
+<canvas id="polarAreaTierList"></canvas>
+
+<script>
+  import {
+    Chart,
+    PolarAreaController,
+    ArcElement,
+    RadialLinearScale,
+  } from "chart.js";
+  Chart.register(PolarAreaController, ArcElement, RadialLinearScale);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const canvasElement = document.getElementById(
+      "polarAreaTierList"
+    ) as HTMLCanvasElement;
+    if (!canvasElement) {
+      return;
+    }
+    const ctx = canvasElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+    new Chart(ctx, {
+      type: "polarArea",
+      data: {
+        labels: [
+          "Moving Charger",
+          "Grayscale",
+          "Inverted Colours",
+          "Deactivation",
+          "Study Strims",
+        ],
+        datasets: [
+          {
+            label: "Rating",
+            data: [7, 5, 8, 3, 9],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.5)",
+              "rgba(255, 159, 64, 0.5)",
+              "rgba(255, 205, 86, 0.5)",
+              "rgba(75, 192, 192, 0.5)",
+              "rgba(54, 162, 235, 0.5)",
+            ],
+          },
+        ],
+      },
+      options: {
+        scales: {
+          r: {
+            pointLabels: {
+              display: true,
+              centerPointLabels: true,
+              font: {
+                size: 18,
+              },
+            },
+            max: 10
+          },
+        },
+      },
+    });
+  });
+</script>
