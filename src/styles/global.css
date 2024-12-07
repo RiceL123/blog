@@ -34,7 +34,7 @@ main {
 	width: 720px;
 	max-width: calc(100% - 2em);
 	margin: auto;
-	padding: 3em 1em;
+	padding: 3em 0.5em;
 }
 h1,
 h2,
@@ -104,7 +104,7 @@ code {
 	font-family: monospace;
 }
 pre {
-	padding: 0.5em 1em;
+	padding: 0.5em 0.7em;
 	border-radius: 8px;
 }
 pre > code {
@@ -123,9 +123,6 @@ hr {
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
-	}
-	main {
-		padding: 1em;
 	}
 }
 
