@@ -1,7 +1,7 @@
-<canvas id="invertedChart"></canvas>
-
+<div class="chart-container" style="position: relative; min-height:400px">
+  <canvas id="invertedChart"></canvas>
+</div>
 <script>
-
   import { Chart, ScatterController } from "chart.js";
   Chart.register(ScatterController);
 
@@ -56,9 +56,43 @@
             ],
             borderColor: "rebeccapurple",
           },
+          {
+            label: "average",
+            data: [
+              { x: 0, y: 1.44 },
+              { x: 30, y: 3.24 },
+            ],
+            borderColor: "rebeccapurple",
+            pointRadius: 0,
+            type: "line",
+            order: 0,
+          },
+          {
+            label: "greyscaled average",
+            data: [
+              { x: 0, y: 3.71 },
+              { x: 30, y: 4.53 },
+            ],
+            borderColor: "cornflowerblue",
+            pointRadius: 0,
+            type: "line",
+            order: 0,
+          },
+          {
+            label: "control average",
+            data: [
+              { x: 0, y: 5.5 },
+              { x: 30, y: 5.5 },
+            ],
+            borderColor: "crimson",
+            pointRadius: 0,
+            type: "line",
+            order: 0,
+          },
         ],
       },
       options: {
+        maintainAspectRatio: false,
         scales: {
           y: {
             title: {
@@ -66,7 +100,7 @@
               text: "screen time (h)",
             },
             min: 0,
-            max: 8
+            max: 8,
           },
           x: {
             title: {

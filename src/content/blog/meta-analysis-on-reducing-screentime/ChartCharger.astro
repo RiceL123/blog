@@ -1,4 +1,6 @@
-<canvas id="multiLineChart"></canvas>
+<div class="chart-container" style="position: relative; min-height:400px">
+  <canvas id="multiLineChart"></canvas>
+</div>
 <script>
   import {
     Chart,
@@ -60,6 +62,7 @@
         ],
       },
       options: {
+        maintainAspectRatio: false,
         scales: {
           x: {
             title: {

@@ -1,5 +1,6 @@
-<canvas id="greyscalechart"></canvas>
-
+<div class="chart-container" style="position: relative; min-height:400px">
+  <canvas id="greyscalechart"></canvas>
+</div>
 <script>
   import { Chart, ScatterController } from "chart.js";
   Chart.register(ScatterController);
@@ -86,9 +87,32 @@
             ],
             borderColor: "cornflowerblue",
           },
+          {
+            label: "average",
+            data: [
+              { x: 0, y: 3.71 },
+              { x: 62, y: 5.38 },
+            ],
+            borderColor: "cornflowerblue",
+            pointRadius: 0,
+            type: "line",
+            order: 0,
+          },
+          {
+            label: "control average",
+            data: [
+              { x: 0, y: 5.5 },
+              { x: 62, y: 5.5 },
+            ],
+            borderColor: "crimson",
+            pointRadius: 0,
+            type: "line",
+            order: 0,
+          },
         ],
       },
       options: {
+        maintainAspectRatio: false,
         scales: {
           y: {
             title: {
@@ -102,7 +126,7 @@
               display: true,
               text: "Days from July to August 2024",
             },
-            max: 62
+            max: 62,
           },
         },
       },

@@ -4,6 +4,11 @@ description: 'It is that damn phone!'
 pubDate: '07 Dec 2024'
 heroImage: '/coding.jpg'
 ---
+import { Image } from 'astro:assets';
+import normal from './normal.jpg';
+import greyscale from './greyscale.jpg';
+import inverted from './inverted.jpg';
+import stacked from './inverted&greyscale.jpg';
 
 ## Intro
 My phone screen time is abysmal. Seeing it reach heavenly heights sitting above 4 hours each day produces visceral feelings of disgust. Doing some calculations, we find that
@@ -48,9 +53,17 @@ import ChartCharger from './ChartCharger.astro'
 
 It was found that there was a negative correlation between the charger's distance to the bed and the amount of screen time. Once the charging location had reached the critical distance of being outside of the bedroom, any additional distance would provide marginal benefit.
 
-Overall, this experiment does seem to indicate the validity of moving the charging port away from the bed. Furthermore, other benefits like better sleeping habits were also experienced. However, I was able to conjure some excuses like *"I need my phone as an alarm"* and *"it'd be weird to use the common area to charge my phone living in a share house"* despite the success. Remedies like buying a physical alarm clock were deemed as valid[^3] however, I ended up on settling with just putting the charger on the other side of the bedroom.
+Overall, this experiment does seem to indicate the validity of moving the charging port away from the bed. Furthermore, other benefits like better sleeping habits were also experienced. However, I was able to conjure some excuses like *"I need my phone as an alarm"* and *"it'd be weird to use the common area to charge my phone living in a share house"* despite the success. Remedies like buying a physical alarm clock were deemed as valid[^3] however, I ended up on settling with just putting the charger on the other side of the bedroom giving me an average screen time of around 5.5 hours.
 
 ### Black and White
+<div style="display: flex; flex-direction: column; width: 100%; align-items: center">
+    <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
+        <Image alt="normal image" width="500" src={normal} style={{ width: '50%' }}/>
+        <Image alt="greyscale image" width="500" src={greyscale} style={{ width: '50%' }}/>
+    </div>
+    <p>A normal vs greyscaled image</p>
+</div>
+
 I saw a friend (Dean) with their phone in gray scale and asked if it had any benefit to reducing screen time. It was indicated that color being taken away would disincentivize phone usage as videos and images would seem more boring. So, from July 2024 to the end of August 2024, I switched my phone to grey monotone. This can be done in the settings app on iOS.
 
 Settings > Accessibility > Display & Text Size > Color Filters > Grayscale
@@ -66,6 +79,15 @@ However, sometimes when I would show friends things on my phone or wanted to see
 Although grayscale did show some promise while also not holding me back from important tasks, it was slowly losing its effectiveness.
 
 ### Inverted Colours
+<div style="display: flex; flex-direction: column; width: 100%; align-items: center">
+    <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
+        <Image alt="normal image" width="500" src={normal} style={{ width: '33%' }}/>
+        <Image alt="inverted image" width="500" src={inverted} style={{ width: '33%' }}/>
+        <Image alt="inverted and greyscale image" width="500" src={stacked} style={{ width: '33%' }}/>
+    </div>
+    <p>normal vs inverted vs inverted + greyscaled</p>
+</div>
+
 For September of 2024, I landed on the idea of stacking both grayscale and inverted colours together in order to make me hate looking at my phone. Similar to where you find the settings for grayscale, you can turn on inverted colours on iOS through
 
 Settings > Accessibility > Display & Text Size > Classic Invert
