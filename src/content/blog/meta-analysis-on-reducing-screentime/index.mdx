@@ -58,8 +58,8 @@ Overall, this experiment does seem to indicate the validity of moving the chargi
 ### Black and White
 <div style="display: flex; flex-direction: column; width: 100%; align-items: center">
     <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
-        <Image alt="normal image" width="500" src={normal} style={{ width: '50%' }}/>
-        <Image alt="greyscale image" width="500" src={greyscale} style={{ width: '50%' }}/>
+        <Image alt="normal image" width="500" src={normal} style={{ width: '50%', maxWidth: '300px' }}/>
+        <Image alt="greyscale image" width="500" src={greyscale} style={{ width: '50%', maxWidth: '300px' }}/>
     </div>
     <p>A normal vs greyscaled image</p>
 </div>
@@ -81,9 +81,9 @@ Although grayscale did show some promise while also not holding me back from imp
 ### Inverted Colours
 <div style="display: flex; flex-direction: column; width: 100%; align-items: center">
     <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
-        <Image alt="normal image" width="500" src={normal} style={{ width: '33%' }}/>
-        <Image alt="inverted image" width="500" src={inverted} style={{ width: '33%' }}/>
-        <Image alt="inverted and greyscale image" width="500" src={stacked} style={{ width: '33%' }}/>
+        <Image alt="normal image" width="500" src={normal} style={{ width: '33%', maxWidth: '300px' }}/>
+        <Image alt="inverted image" width="500" src={inverted} style={{ width: '33%', maxWidth: '300px' }}/>
+        <Image alt="inverted and greyscale image" width="500" src={stacked} style={{ width: '33%', maxWidth: '300px' }}/>
     </div>
     <p>normal vs inverted vs inverted + greyscaled</p>
 </div>
