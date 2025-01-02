@@ -1,0 +1,18 @@
+---
+import languages from "./languages.json";
+
+const ranked = Object.entries(languages).sort(
+  ([_a, a], [_b, b]) => b.rating - a.rating
+);
+---
+
+<div>
+  {
+    ranked.map(([lang, x]) => (
+      <div>
+        {lang}
+        {x.rating}
+      </div>
+    ))
+  }
+</div>

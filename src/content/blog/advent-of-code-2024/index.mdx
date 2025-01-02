@@ -1,0 +1,181 @@
+---
+title: 'Advent of Code 2024'
+description: 'It is that damn phone!'
+pubDate: '1 Jan 2024'
+heroImage: '/coding.jpg'
+---
+import { Image } from 'astro:assets';
+import matplotlib from './2024.svg';
+import Languages from './Languages.astro';
+
+
+## The challenge
+[Advent of Code](https://adventofcode.com/) is a 25 day challenge of problems with increasing difficulty for the month of December in the lead up to Christmas. The problems can be solved by any means necessary as long as the answer is correct. This means you can solve the problems by hand, on LibreOffice Calc or with a programming language.
+
+I decided that for 2024, I would try and have a crack the following languages
+
+<Languages />
+
+## Visualizing language usage
+[GitHub](https://github.com) will automatically generate the language distribution in a repository according to [linguist](https://github.com/github-linguist/linguist/) which will automatically generate a HTML span like the one below.
+
+
+<span style="display: flex; height: 12px; overflow: hidden; background-color: #e1e4e8; border-radius: 10px; box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);">
+  <span style="background-color:#dea584 !important;width: 44.2%;" aria-label="Rust 44.2%"></span>
+  <span style="background-color:#3572A5 !important;width: 9.2%;" aria-label="Python 9.2%"></span>
+  <span style="background-color:#555555 !important;width: 8.6%;" aria-label="C 8.6%"></span>
+  <span style="background-color:#f34b7d !important;width: 5.7%;" aria-label="C++ 5.7%"></span>
+  <span style="background-color:#ec915c !important;width: 5.3%;" aria-label="Zig 5.3%"></span>
+  <span style="background-color:#b07219 !important;width: 4.3%;" aria-label="Java 4.3%"></span>
+  <span style="background-color:#ededed !important;width: 22.7%;" aria-label="Other 22.7%"></span>
+</span>
+
+<div style="display: flex; flex-wrap: wrap">
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #dea584; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Rust</span><span>44.2%</span></span></li>
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #3572A5; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Python</span><span>9.2%</span></span></li>
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #555555; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">C</span><span>8.6%</span></span></li>
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #f34b7d; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">C++</span><span>5.7%</span></span></li>
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #ec915c; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Zig</span><span>5.3%</span></span></li>
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #b07219; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Java</span><span>4.3%</span></span></li>
+<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #ededed; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Other</span><span>22.7%</span></span></li>
+</div>
+
+Though this is great feature, information is aggregated into a single 'Other' category when there are too many different languages in a single repo. So I tried to write a github action workflow that would run a python script on every commit and display the language usage in the README.md file
+- Initially i tried to use a python script to generate raw html. However, Although it was working on my own markdown previews, github's README.md files do not render raw HTML elements.
+- So the next best option i could think of was to manually redraw an image which would be reflected in the README.md file referencing it
+- I had to learn a little bit of MatPlot lib and how the workflow of github's yaml files should be organized (i was only familiar with cd/ci in gitlab from university work)
+
+<Image alt="language distribution" src={matplotlib} />
+
+## The Languages
+What do I want out of a programming language?
+- Should be easy to read (meaning it is quite close to english or easy to understand)
+- Should have good documentation / hopefully someone has already had the same question on stack overflow
+- Should have helpful error messages
+- Plz have IntelliSense
+- Not too much boilerplate
+
+### Day 01: [Haskell](https://www.haskell.org/)
+Haskell is pretty fun i like
+Hoogle good
+### Day 02: [Lua](https://www.lua.org/)
+There was a lot of hype around Lua. It was good but I would prefer some more batteries included if you know what i mean. It was really easy to setup very nice
+### Day 03: [Bash](https://tiswww.case.edu/php/chet/bash/bashtop.html)
+Gotta love piping like a maniac
+### Day 04: [Go](https://go.dev/)
+Felt like a c kinda solution
+### Day 05: [C#](https://learn.microsoft.com/dotnet/csharp/)
+Love the functional thingos
+### Day 06: [C++](https://isocpp.org/)
+not bad
+### Day 07: [Java](https://www.oracle.com/java/)
+streams for days - isn't that bad however, i do understand that java has been putting in the work for jdk 17 which is what i was using
+### Day 08: [TypeScript](https://www.typescriptlang.org/)
+Is good nothing out of ordinary
+### Day 09: [C](https://www.gnu.org/software/gnu-c-manual/)
+Kinda a scuffed solution but yeah in the end you gotta pay respects to the OG
+### Day 10: [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript)
+Javascript so nice to use when making simple things. Did this challenge in the airport very nice
+might be one of my fav implementations of functional
+### Day 11: [Python](https://www.python.org/)
+I'm not too familiar with dp, so I fell back onto a language i was familiar with as a safe guard
+Only later did i directly translate this code to scala. It was a pretty simple process. Love that scala supports functional style programs
+### Day 12: [Rust](https://www.rust-lang.org/)
+Rust my beloved. The errors are so helpful! awesome documentation! i can't stop glazing rust
+### Day 13: [Ruby](https://www.ruby-lang.org/)
+Ruby is great. When doing some arithmetic, the numbers seemed to be stored as quotients and so I had no floating point errors. It was amazing! Syntatically simple pre nice
+### Day 14: [Zig](https://ziglang.org/)
+There was a lot of hype of 
+Documentation feels 
+For some reason vscode IntelliSense not working. All goods cuz it works on Zed with the click of a button
+
+First day of zig not really liking it. Second day of zig liking it a lot more. The learning curve was pretty steepish but after the initial curve pretty lit i reckon
+
+Needa give Zig some time to marinate. Would probably only go back to it if it passes v1.0
+
+I love how the problem is just like 'find the christmas tree that'll appear' without any clear deterministic instructions or examples
+### Day 15: [Python -- Again?](https://www.python.org/)
+Bruh zig had me so demotivated
+### Day 16: [Kotlin](https://kotlinlang.org)
+Hate how difficult it was just to find the cli compiler like bro i don't want your IDE mate. Bruh binary is just like 200MB and its a pain to setup and run and just running hello world i needa install even more dependencies?? The compilation times are outrageously slow
+
+might be the worst language so far
+### Day 17: [Dart](https://dart.dev)
+why does apt-get take 4 steps???? bruh imma just download the binary (bruh its like 200 MB as well) (takes less steps lmao)
+bruh why is analytics opt-out and not opt-in. typically google ig 💀
+overall pretty nice language, shebangable, destructuring and what not pretty mid nothing too good nothing too bad
+### Day 18: [Exilir](https://elixir-lang.org)
+Very easy download only taking like 7 mb and easy to pick up syntatically
+Functional
+shebangable lovely (gives me gleam vibes)
+Lmao i've like never seen these vscode colours for keywords before (i just use the default theme cuz i'm a simple guy)
+functional bfs is kinda based - I looked up a recusive solution and it didn't seem too bad. However, instead of copying it, I wanted to try and do an unfold
+
+Didn't really understand unfold so played aroud in iex for a bit. Also very nice
+docs are pretty good
+### Day 19: [Squirrel](http://squirrel-lang.org/)
+Squirrel prolly one of the most obscure languages on this list
+### Day 20: [Nim](https://nim-lang.org/)
+Nim was nice as to code in. I really liked
+### Day 21: [Crystal](https://crystal-lang.org/)
+Crystal is ruby like language - 
+documentation is awesome
+some error messages not that helpful
+has functional features lovely
+
+Overall crystal is great
+
+implicit returns?
+### Day 22: [Gleam](https://gleam.run/)
+bruh why i gotta install erlang anyways...
+feels like rust
+bruh where is file system (fs) - gleam_erlang remove fs in 0.24? `gleam add simplifile` works ig
+no for loops lmao - ig thats the functional bro mindset
+### Day 23: [Raku](https://raku.org/)
+Perl 6 apparently? well happy i aint stuck in the programming of the 90s lmao.
+Easy to setup & you can use hashbang lovely
+what in the weeb? https://docs.raku.org/language/hashmap#Constraint_value_types
+
+holy there are a lot of operators and thingos https://docs.raku.org/language/operators
+bruh look at this cursed if statement
+```raku
+if $visited !(cont) $neighbour and @curr_arr ∌ $neighbour and all @curr_arr>>.&{ %graph{$_} (cont) $neighbour } {}
+```
+In the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python), you'll see that one of their philosophies is `There should be one-- and preferably only one --obvious way to do it.` Feels like Raku went the opposite direction xD.
+
+overall pretty nice lmao
+### Day 24: [Odin](https://odin-lang.org/)
+feels very much like go - uses runes & ppl in odin discord use go syntax highlighting since odin not supported there
+documentation is decent but defs could be better - imited examples
+[Odin has non-capturing lambda produres](https://odin-lang.org/docs/faq/#does-odin-have-closures)
+
+haven't made a use after free error in so long until using this lang lmao
+### Day 25: [Mojo](https://www.modular.com/mojo)
+Get pranked this is just python with a compiler xD
+Looking at the favicon i keep mistaking it for MDN lmao (They are literally the same)
+Bruh Mojo Set doesn't work with a string??? Imma use a Dict i guess??
+list comprehensions don't work in mojo? Mojo doesn't have `zip` or `filter`
+```python
+[len("".join(x).replace(c, '')) - 1 for x in list(zip(*a.split("\n")))]
+```
+is the code meant to convert keys and locks to their corresponding numbers by transposing (unzipping (zip(*))) the strings
+
+Mojo fails to parse
+
+Now I'm angry. Though I'd be happy to manually write this list comprehension imperatively if I was using C, with the expectation that it would be pythonic and not delivering is so sad. Frick this language imma not code for the rest of Christmas
+
+WHy do they have ai art in their page - who's to say they aren't use the trash code that llm's produce 💀. They claim to be open source but using generative ai is stealing so this contradicts the spirit of the initiative.
+
+Hate how you use my_var[] for dereferencing pointers
+
+Functions like String.replace just doesn't work
+
+Worst language
+
+## Conclusion
+
+lets rank these based on nothing but vibes
+
+import Ranking from './Ranking.astro'
+
+<Ranking />
