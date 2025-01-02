@@ -1,18 +1,59 @@
----
-import languages from "./languages.json";
+<canvas id="aoc-lang-ratings"></canvas>
 
-const ranked = Object.entries(languages).sort(
-  ([_a, a], [_b, b]) => b.rating - a.rating
-);
----
+<script>
+  import {
+    Chart,
+    BarController,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+  } from "chart.js";
+  Chart.register(
+    BarController,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip
+  );
+  import languages from "../../data/languages.json";
 
-<div>
-  {
-    ranked.map(([lang, x]) => (
-      <div>
-        {lang}
-        {x.rating}
-      </div>
-    ))
-  }
-</div>
+  const ranked = Object.entries(languages).sort(
+    ([_a, a], [_b, b]) => b.rating - a.rating
+  );
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const chartElement = document.getElementById(
+      "aoc-lang-ratings"
+    ) as HTMLCanvasElement;
+    if (!chartElement) {
+      return;
+    }
+    const ctx = chartElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ranked.map(([lang, _]) => lang),
+        datasets: [
+          {
+            data: ranked.map(([_, x]) => x.rating),
+            borderColor: ranked.map(([_, x]) => x.color),
+            backgroundColor: ranked.map(([_, x]) => `${x.color}A0`),
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  });
+</script>

@@ -157,7 +157,7 @@
     "suffix": [".kt"],
     "size": 0,
     "file": "day16.kt",
-    "rating": 5
+    "rating": 3.2
   },
   "Dart": {
     "day": 17,
@@ -202,7 +202,7 @@
   "Crystal": {
     "day": 21,
     "link": "https://crystal-lang.org/",
-    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/crystal/crystal-original.svg",
+    "icon": "https://crystal-lang.org/favicon.ico",
     "color": "#000100",
     "suffix": [".cr"],
     "size": 2023,
