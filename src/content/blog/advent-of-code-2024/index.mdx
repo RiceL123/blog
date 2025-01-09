@@ -2,64 +2,81 @@
 title: 'Advent of Code 2024'
 description: 'It is that damn phone!'
 pubDate: '1 Jan 2024'
-heroImage: '/coding.jpg'
+heroImage: '/aoc24.jpg'
 ---
 import { Image } from 'astro:assets';
-import matplotlib from './2024.svg';
-import Languages from './Languages.astro';
-
 
 ## The challenge
-[Advent of Code](https://adventofcode.com/) is a 25 day challenge of problems with increasing difficulty for the month of December in the lead up to Christmas. The problems can be solved by any means necessary as long as the answer is correct. This means you can solve the problems by hand, on LibreOffice Calc or with a programming language.
+[Advent of Code](https://adventofcode.com/) is a 25 day challenge of language agnostic problems for the month of December in the lead up to Christmas. The problems can be solved by any means necessary including by hand, on LibreOffice Calc, with Sratch or with a programming language.
 
-I decided that for 2024, I would try and have a crack the following languages
+I decided that for 2024, I would try and have a crack trying a different language for each day:
+
+import Languages from './Languages.astro';
 
 <Languages />
 
+You can find all of my solutions in my [GitHub repo](https://github.com/RiceL123/advent-of-code).
 ## Visualizing language usage
 [GitHub](https://github.com) will automatically generate the language distribution in a repository according to [linguist](https://github.com/github-linguist/linguist/) which will automatically generate a HTML span like the one below.
 
+import GitHubLangs from './GitHubLangs.astro'
 
-<span style="display: flex; height: 12px; overflow: hidden; background-color: #e1e4e8; border-radius: 10px; box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);">
-  <span style="background-color:#dea584 !important;width: 44.2%;" aria-label="Rust 44.2%"></span>
-  <span style="background-color:#3572A5 !important;width: 9.2%;" aria-label="Python 9.2%"></span>
-  <span style="background-color:#555555 !important;width: 8.6%;" aria-label="C 8.6%"></span>
-  <span style="background-color:#f34b7d !important;width: 5.7%;" aria-label="C++ 5.7%"></span>
-  <span style="background-color:#ec915c !important;width: 5.3%;" aria-label="Zig 5.3%"></span>
-  <span style="background-color:#b07219 !important;width: 4.3%;" aria-label="Java 4.3%"></span>
-  <span style="background-color:#ededed !important;width: 22.7%;" aria-label="Other 22.7%"></span>
-</span>
-
-<div style="display: flex; flex-wrap: wrap">
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #dea584; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Rust</span><span>44.2%</span></span></li>
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #3572A5; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Python</span><span>9.2%</span></span></li>
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #555555; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">C</span><span>8.6%</span></span></li>
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #f34b7d; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">C++</span><span>5.7%</span></span></li>
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #ec915c; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Zig</span><span>5.3%</span></span></li>
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #b07219; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Java</span><span>4.3%</span></span></li>
-<li style="display: inline-block; margin-right: 1em"><span style="display: flex; gap: 0.3em; align-items: center;"><span style="color: #ededed; font-size: 1.1em; font-weight: 900;">•</span><span style="font-size: 0.8em; font-weight: bold">Other</span><span>22.7%</span></span></li>
-</div>
+<GitHubLangs />
 
 Though this is great feature, information is aggregated into a single 'Other' category when there are too many different languages in a single repo. So I tried to write a github action workflow that would run a python script on every commit and display the language usage in the README.md file
 - Initially i tried to use a python script to generate raw html. However, Although it was working on my own markdown previews, github's README.md files do not render raw HTML elements.
 - So the next best option i could think of was to manually redraw an image which would be reflected in the README.md file referencing it
 - I had to learn a little bit of MatPlot lib and how the workflow of github's yaml files should be organized (i was only familiar with cd/ci in gitlab from university work)
+- The script works find walking through the directory, however, as order didn't matter for showing distribution, the languages might as well be sorted for maximally aesthics (i.e. sorting based on colour (more specifically the hue https://wikipedia.org/wiki/Hue#Defining_hue_in_terms_of_RGB))
 
-<Image alt="language distribution" src={matplotlib} />
+import HueDraft from './HueDraft.astro'
+
+<HueDraft />
+
+- What we find is that this works 
+```js
+let hue = Math.atan2(Math.sqrt(3) * (G - B), (2 * R - G - B))
+```
+- The problem with this is that languages like Crystal (Black) and C (Grey) that with colour values which pertain to (r == g == b) will be placed on the colour wheel with no real intent. The best solution I could think of was to convert all the colours to grayscale in order to be able to compare the colours by their value. Then I would insert any whites to the lightest section and any grays / blacks into the darkest parts. However, there is a difference between perceived luminance and value (this is why HSV and HSL are distinct).
+
+```js
+let luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B
+let value = Math.max(R, G, B)
+```
+
+import HueLuminance from './HueLuminance.astro'
+
+<HueLuminance />
+
+Based on vibes, luminence is the better indicator for determining where to put the colours. Now we can just get the darkest colour by luminence and chuck our grays and blacks there. 
+
+<Image alt="language distribution" width="700" height="700" src="https://raw.githubusercontent.com/RiceL123/advent-of-code/main/script/2024.svg" style="margin-inline: auto; margin-top: 10px;"/>
+
+If more robust colour sorting is wanted in the future, I think I would use both the hue and luminance in my calculation to get to a 2D plot and from there do some [dimensionality reduction](https://en.wikipedia.org/wiki/Dimensionality_reduction) to sort them in 1 dimension.
+
+import ColorScatter from './ColorScatter.astro'
+
+<ColorScatter />
+
+import ColorSorted from './ColorSorted.astro'
+
+<ColorSorted />
 
 ## The Languages
 What do I want out of a programming language?
 - Should be easy to read (meaning it is quite close to english or easy to understand)
-- Should have good documentation / hopefully someone has already had the same question on stack overflow
-- Should have helpful error messages
-- Plz have IntelliSense
-- Not too much boilerplate
+- Should have good documentation / hopefully someone has already had the same question on stack overflow (I will try to actively avoid any youtube tutorials because personally I learn better from the docs)
+- Plz have IntelliSense but this is fine if the error messages are helpful
+- Easy to install / setup - if I can't make it a simple shebangable script at least make it a simple `cargo new` or something
+- I don't want to be fighting the language or compiler, i want to be fighting the problem at hand
+- specific miscellaneous good to haves: functional paradigm support, lambdas, destructuring, types or type hints
 
 ### Day 01: [Haskell](https://www.haskell.org/)
 Haskell is pretty fun i like
 Hoogle good
 ### Day 02: [Lua](https://www.lua.org/)
-There was a lot of hype around Lua. It was good but I would prefer some more batteries included if you know what i mean. It was really easy to setup very nice
+There was a lot of hype around Lua. All the youngings be using it for roblox and I also see it in neovim and other random places. Very easy to setup
+It was good but I would prefer some more batteries included if you know what i mean. It was really easy to setup very nice
 ### Day 03: [Bash](https://tiswww.case.edu/php/chet/bash/bashtop.html)
 Gotta love piping like a maniac
 ### Day 04: [Go](https://go.dev/)
@@ -77,7 +94,7 @@ Kinda a scuffed solution but yeah in the end you gotta pay respects to the OG
 ### Day 10: [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript)
 Javascript so nice to use when making simple things. Did this challenge in the airport very nice
 might be one of my fav implementations of functional
-### Day 11: [Python](https://www.python.org/)
+### Day 11: [Scala](https://scala-lang.org)
 I'm not too familiar with dp, so I fell back onto a language i was familiar with as a safe guard
 Only later did i directly translate this code to scala. It was a pretty simple process. Love that scala supports functional style programs
 ### Day 12: [Rust](https://www.rust-lang.org/)
@@ -85,8 +102,8 @@ Rust my beloved. The errors are so helpful! awesome documentation! i can't stop 
 ### Day 13: [Ruby](https://www.ruby-lang.org/)
 Ruby is great. When doing some arithmetic, the numbers seemed to be stored as quotients and so I had no floating point errors. It was amazing! Syntatically simple pre nice
 ### Day 14: [Zig](https://ziglang.org/)
-There was a lot of hype of 
-Documentation feels 
+There was a lot of hype of
+Documentation feels
 For some reason vscode IntelliSense not working. All goods cuz it works on Zed with the click of a button
 
 First day of zig not really liking it. Second day of zig liking it a lot more. The learning curve was pretty steepish but after the initial curve pretty lit i reckon
@@ -94,10 +111,14 @@ First day of zig not really liking it. Second day of zig liking it a lot more. T
 Needa give Zig some time to marinate. Would probably only go back to it if it passes v1.0
 
 I love how the problem is just like 'find the christmas tree that'll appear' without any clear deterministic instructions or examples
-### Day 15: [Python -- Again?](https://www.python.org/)
+### Day 15: [Python](https://www.python.org/)
 Bruh zig had me so demotivated
 ### Day 16: [Kotlin](https://kotlinlang.org)
 Hate how difficult it was just to find the cli compiler like bro i don't want your IDE mate. Bruh binary is just like 200MB and its a pain to setup and run and just running hello world i needa install even more dependencies?? The compilation times are outrageously slow
+
+Doesn't have a standard file system? Maybe its cuz its tryna target multiple platforms - gleam as well?? Wow turns out if i want to just java functions, i can't use the kotlin native compiler but need the jvm compiler?? However, you can't have both the native and jvm compiler as it just default to the native compiler 😠. bruh ofc imma click on the linux one if i see it [there](https://github.com/JetBrains/kotlin/releases/tag/v2.1.0)
+
+Kotlin doesn't have a priority queue or min-heap. All goods because I can just drop in the java priority queue which is pretty cool
 
 might be the worst language so far
 ### Day 17: [Dart](https://dart.dev)
@@ -118,7 +139,7 @@ Squirrel prolly one of the most obscure languages on this list
 ### Day 20: [Nim](https://nim-lang.org/)
 Nim was nice as to code in. I really liked
 ### Day 21: [Crystal](https://crystal-lang.org/)
-Crystal is ruby like language - 
+Crystal is ruby like language -
 documentation is awesome
 some error messages not that helpful
 has functional features lovely
@@ -179,3 +200,11 @@ lets rank these based on nothing but vibes
 import Ranking from './Ranking.astro'
 
 <Ranking />
+
+The take away from all of this in regards to languages is that most of them are good enough if they have just existed for long enough to have good documentation.
+
+import LangTree from './LangTree.astro'
+
+<LangTree />
+
+Merry Christmas everyone ~!

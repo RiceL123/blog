@@ -1,0 +1,78 @@
+<canvas style="max-height: 300px;" id="aoc-lang-sorted"></canvas>
+
+<script>
+  import languages from "../../data/aoc24_languages.json";
+  import { Chart, DoughnutController, ArcElement, Tooltip } from "chart.js";
+  Chart.register(DoughnutController, ArcElement, Tooltip);
+
+  function hexToRGB(color: String) {
+    color = color[0] == "#" ? color.substring(1) : color;
+    var R = parseInt(color.substring(0, 2), 16);
+    var G = parseInt(color.substring(2, 4), 16);
+    var B = parseInt(color.substring(4, 6), 16);
+    return [R, G, B];
+  }
+
+  function getHue(color: String) {
+    const [R, G, B] = hexToRGB(color);
+    // https://en.wikipedia.org/wiki/Hue#Defining_hue_in_terms_of_RGB
+    return Math.atan2(Math.sqrt(3) * (G - B), 2 * R - G - B);
+  }
+
+  function getLuminance(color: String) {
+    const [R, G, B] = hexToRGB(color);
+    // https://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+    return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  }
+
+  function isChromatic(color: String): Boolean {
+    const [R, G, B] = hexToRGB(color);
+    return R != G || G != B;
+  }
+
+  const darkest = Object.values(languages)
+    .filter((x) => isChromatic(x.color))
+    .sort((x) => getLuminance(x.color))
+    .at(-1);
+
+  const sorted = Object.entries(languages).sort(([_a, a], [_b, b]) => {
+    let [a_hue, b_hue] = [a.color, b.color].map((color) =>
+      isChromatic(color) ? getHue(color) : getHue(darkest!.color)
+    );
+    return b_hue - a_hue;
+  });
+
+  const total_size = Object.values(languages)
+    .map((x) => x.size)
+    .reduce((acc, x) => acc + x);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const chartElement = document.getElementById(
+      "aoc-lang-sorted"
+    ) as HTMLCanvasElement;
+    if (!chartElement) {
+      return;
+    }
+    const ctx = chartElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: sorted.map(([lang, _]) => lang),
+        datasets: [
+          {
+            label: "percent",
+            data: sorted.map(
+              ([_, x]) => Math.round((x.size / total_size) * 100 * 100) / 100
+            ),
+            borderColor: sorted.map(([_, x]) => x.color),
+            backgroundColor: sorted.map(([_, x]) => x.color),
+          },
+        ],
+      },
+    });
+  });
+</script>

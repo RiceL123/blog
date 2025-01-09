@@ -16,7 +16,7 @@
     LinearScale,
     Tooltip
   );
-  import languages from "../../data/languages.json";
+  import languages from "../../data/aoc24_languages.json";
 
   const ranked = Object.entries(languages).sort(
     ([_a, a], [_b, b]) => b.rating - a.rating
@@ -40,6 +40,7 @@
         labels: ranked.map(([lang, _]) => lang),
         datasets: [
           {
+            label: "rating",
             data: ranked.map(([_, x]) => x.rating),
             borderColor: ranked.map(([_, x]) => x.color),
             backgroundColor: ranked.map(([_, x]) => `${x.color}A0`),

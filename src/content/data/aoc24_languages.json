@@ -81,7 +81,7 @@
   },
   "C": {
     "day": 9,
-    "link": "https://www.gnu.org/software/gnu-c-manual/",
+    "link": "https://gnu.org/software/gnu-c-manual/",
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg",
     "color": "#555555",
     "suffix": [".c", ".h"],
@@ -101,7 +101,7 @@
   },
   "Scala": {
     "day": 11,
-    "link": "https://www.scala.org",
+    "link": "https://scala-lang.org",
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg",
     "color": "#c22d40",
     "suffix": [".scala"],
@@ -111,7 +111,7 @@
   },
   "Rust": {
     "day": 12,
-    "link": "https://www.rust-lang.org/",
+    "link": "https://rust-lang.org/",
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg",
     "color": "#dea584",
     "suffix": [".rs"],
@@ -121,7 +121,7 @@
   },
   "Ruby": {
     "day": 13,
-    "link": "https://www.ruby-lang.org/",
+    "link": "https://ruby-lang.org/",
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg",
     "color": "#701516",
     "suffix": [".rb"],
@@ -137,11 +137,11 @@
     "suffix": [".zig"],
     "size": 3682,
     "file": "day14.zig",
-    "rating": 7.0
+    "rating": 7
   },
   "Python": {
     "day": 15,
-    "link": "https://www.python.org/",
+    "link": "https://python.org/",
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
     "color": "#3572A5",
     "suffix": [".py"],
@@ -155,7 +155,7 @@
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg",
     "color": "#A97BFF",
     "suffix": [".kt"],
-    "size": 0,
+    "size": 3727,
     "file": "day16.kt",
     "rating": 3.2
   },
@@ -175,7 +175,7 @@
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/elixir/elixir-original.svg",
     "color": "#6e4a7e",
     "suffix": [".exs", ".ex"],
-    "size": 2579,
+    "size": 2641,
     "file": "day18.exs",
     "rating": 9.2
   },
@@ -203,11 +203,11 @@
     "day": 21,
     "link": "https://crystal-lang.org/",
     "icon": "https://crystal-lang.org/favicon.ico",
-    "color": "#000100",
+    "color": "#000000",
     "suffix": [".cr"],
     "size": 2023,
     "file": "day21.cr",
-    "rating": 9.0
+    "rating": 9
   },
   "Gleam": {
     "day": 22,
@@ -241,7 +241,7 @@
   },
   "Mojo": {
     "day": 25,
-    "link": "https://www.modular.com/mojo",
+    "link": "https://modular.com/mojo",
     "icon": "https://cdn.prod.website-files.com/63f9f100025c058594957cca/6426d9e5cf7f8951ae98bc59_webclip.svg",
     "color": "#ff4c1f",
     "suffix": [".mojo"],

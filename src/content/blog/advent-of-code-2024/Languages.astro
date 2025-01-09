@@ -1,10 +1,5 @@
 ---
-import languages from "../../data/languages.json";
-
-const total = Object.values(languages)
-  .map((x) => x.size)
-  .reduce((acc, x) => acc + x);
-
+import languages from "../../data/aoc24_languages.json";
 const max = Math.max(...Object.values(languages).map((x) => x.size));
 ---
 
@@ -15,8 +10,8 @@ const max = Math.max(...Object.values(languages).map((x) => x.size));
   {
     Object.entries(languages).map(([lang, x]) => (
       <div
-        style="display: flex; flex-direction: column; padding: 10px; border-radius: 10px;"
-        class={`bg-[${x.color}] hover:shadow-[${x.color}] shadow`}
+        style="display: flex; flex-direction: column; padding: 10px; border-radius: 10px; background-color: white;"
+        class={`bg-[${x.color}] hover:shadow-lg shadow hover:scale-125 transition duration-75`}
       >
         <div style="display: flex; gap: 4px">
           <a href={x.link} style="margin: 2px;">
@@ -26,9 +21,9 @@ const max = Math.max(...Object.values(languages).map((x) => x.size));
               style={`height: 30px;border-radius: 0; width: 30px; fill: ${x.color}`}
             />
           </a>
-          <div>
+          <a style="color:black" href={`#day-${x.file.substring(3, 5)}-${lang.replaceAll(/[+#]/g, "").toLowerCase()}`}>
             {x.day}. {lang}
-          </div>
+          </a>
         </div>
         <div style="width: 100%">
           <span style="display: flex; height: 6px; overflow: hidden; border-radius: 10px;">
