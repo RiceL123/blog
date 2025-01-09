@@ -5,6 +5,8 @@ pubDate: '1 Jan 2024'
 heroImage: '/aoc24.jpg'
 ---
 import { Image } from 'astro:assets';
+import aoc24_languages from '../../data/aoc24_languages';
+import StarRating from './StarRating.astro';
 
 ## The challenge
 [Advent of Code](https://adventofcode.com/) is a 25 day challenge of language agnostic problems for the month of December in the lead up to Christmas. The problems can be solved by any means necessary including by hand, on LibreOffice Calc, with Sratch or with a programming language.
@@ -74,11 +76,20 @@ What do I want out of a programming language?
 ### Day 01: [Haskell](https://www.haskell.org/)
 Haskell is pretty fun i like
 Hoogle good
+<StarRating rating={7} icon={aoc24_languages.Haskell.icon} />
+TLDR: Functional but i'm not actually a functional bro so unlugs
 ### Day 02: [Lua](https://www.lua.org/)
 There was a lot of hype around Lua. All the youngings be using it for roblox and I also see it in neovim and other random places. Very easy to setup
 It was good but I would prefer some more batteries included if you know what i mean. It was really easy to setup very nice
+
+<StarRating rating={3} icon={aoc24_languages.Lua.icon} />
+
+TLDR: not bad good size (literally very small)
 ### Day 03: [Bash](https://tiswww.case.edu/php/chet/bash/bashtop.html)
 Gotta love piping like a maniac
+
+<StarRating rating={8} icon={aoc24_languages.Bash.icon} />
+TLDR: Your mother
 ### Day 04: [Go](https://go.dev/)
 Felt like a c kinda solution
 ### Day 05: [C#](https://learn.microsoft.com/dotnet/csharp/)
@@ -134,6 +145,8 @@ functional bfs is kinda based - I looked up a recusive solution and it didn't se
 
 Didn't really understand unfold so played aroud in iex for a bit. Also very nice
 docs are pretty good
+
+Overall really liked it: I would like to try 
 ### Day 19: [Squirrel](http://squirrel-lang.org/)
 Squirrel prolly one of the most obscure languages on this list
 ### Day 20: [Nim](https://nim-lang.org/)
@@ -206,5 +219,7 @@ The take away from all of this in regards to languages is that most of them are 
 import LangTree from './LangTree.astro'
 
 <LangTree />
+
+Also if you would like, choose your favourite language compare to others that have come this far in the blog and voted as well!
 
 Merry Christmas everyone ~!
