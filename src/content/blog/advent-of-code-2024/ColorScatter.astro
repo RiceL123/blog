@@ -21,13 +21,12 @@
 
   function getHue(color: String) {
     const [R, G, B] = hexToRGB(color);
-    const degrees =
+    let degrees =
       Math.atan2(Math.sqrt(3) * (G - B), 2 * R - G - B) * (180 / Math.PI);
-    return R != G || G != B
-      ? degrees < 0
-        ? degrees + 360
-        : degrees
-      : -Math.PI;
+
+    degrees = (60 - degrees + 280) % 360; // ngl these are random numbers
+
+    return R != G || G != B ? degrees : 0;
   }
 
   function getLuminance(color: String) {
@@ -73,7 +72,7 @@
             suggestedMin: 360,
             title: {
               display: true,
-              text: "Hue (0° = Red, 120° = Green, 240° = Blue)",
+              text: "Hue",
             },
           },
         },

@@ -3,6 +3,11 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+import { getCollection } from "astro:content";
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
 <!doctype html>
@@ -12,9 +17,61 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
   </head>
   <body>
     <Header />
-    <main>
-      <p>RiceL123 blog</p>
-    </main>
+    <div
+      style="max-width: 1100px; margin-inline:auto; padding-inline: 10px"
+      class="block md:flex gap-4"
+    >
+      <main>
+        <h1>RiceL123 blog</h1>
+        <p>
+          This is my blog whereby I write about anything under the sun that I
+          find interesting.
+        </p>
+        <p class="font-bold mb-0">This may include:</p>
+        <ul>
+          <li>Silly experiments</li>
+          <li>Devlogs</li>
+          <li>Recounts</li>
+          <li>Unfinished work</li>
+        </ul>
+        <p class="font-bold mb-0">This will not include:</p>
+        <ul>
+          <li>Infallible takes (all subjective assertions are open change)</li>
+          <li>todo!("finish this landing page")</li>
+        </ul>
+        <p class="text-sm mt-10">
+          Built with <a href="https://astro.build">Astro</a> and <a
+            href="https://tailwindcss.com">Tailwind</a
+          >
+        </p>
+      </main>
+      <div
+        style="width: 1px; background-color:lightgray; margin:10px"
+        class="hidden md:block"
+      >
+      </div>
+      <div style="width: 400px; margin-top: 50px">
+        <h2>Blogs</h2>
+        <a class="no-underline hover:underline" href="/blog">All Blogs ></a>
+        <h3>Recent</h3>
+        <ul class="mb-10">
+          {
+            posts.map((post) => (
+              <li class="group border-b">
+                <a
+                  style="font-size: smaller;"
+                  href={`/blog/${post.slug}/`}
+                  class="line-clamp-1 no-underline group-hover:underline mb-0"
+                >
+                  {post.data.title}
+                </a>
+                <span class="text-xs mt-0">{post.data.pubDate}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
     <Footer />
   </body>
 </html>

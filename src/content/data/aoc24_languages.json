@@ -21,7 +21,7 @@
   },
   "Bash": {
     "day": 3,
-    "link": "https://tiswww.case.edu/php/chet/bash/bashtop.html",
+    "link": "https://tiswww.case.edu/php/chet/bash/bashref.html",
     "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg",
     "color": "#89e051",
     "suffix": [".sh"],
