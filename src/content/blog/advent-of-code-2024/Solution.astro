@@ -1,0 +1,31 @@
+---
+const { lang, file } = Astro.props;
+import { Code } from "astro:components";
+const solutionResponse = await fetch(
+  `https://raw.githubusercontent.com/RiceL123/advent-of-code/refs/heads/main/2024/${file}`
+);
+
+if (!solutionResponse.ok) {
+  throw new Error(
+    `Failed to fetch the solution: ${solutionResponse.statusText}`
+  );
+}
+
+const solution = await solutionResponse.text();
+---
+
+<details>
+  <summary class="px-2 rounded hover:bg-gray-200">Solution</summary>
+  <div class="p-1 bg-gray-100">
+    <a
+      href={`https://github.com/RiceL123/advent-of-code/blob/main/2024/${file}`}
+      >Github file link</a
+    >
+    <Code
+      style="line-height: 1em;"
+      code={solution}
+      lang={lang}
+      theme="github-dark-dimmed"
+    />
+  </div>
+</details>

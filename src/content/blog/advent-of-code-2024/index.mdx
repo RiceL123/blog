@@ -7,9 +7,10 @@ heroImage: '/aoc24.jpg'
 import { Image } from 'astro:assets';
 import aoc24_languages from '../../data/aoc24_languages';
 import StarRating from './StarRating.astro';
+import Solution from './Solution.astro';
 
 ## The challenge
-[Advent of Code](https://adventofcode.com/) is a 25 day challenge of language agnostic problems for the month of December in the lead up to Christmas. The problems can be solved by any means necessary including by hand, on LibreOffice Calc, with Sratch or with a programming language.
+[Advent of Code](https://adventofcode.com/) is a 25 day challenge of language agnostic problems for the month of December in the lead up to Christmas. Being language agnostic, the problems can be solved by any means necessary including by hand, on LibreOffice Calc, with Sratch or with a programming language.
 
 I decided that for 2024, I would try and have a crack trying a different language for each day:
 
@@ -19,28 +20,32 @@ import Languages from './Languages.astro';
 
 You can find all of my solutions in my [GitHub repo](https://github.com/RiceL123/advent-of-code).
 ## Visualizing language usage
-[GitHub](https://github.com) will automatically generate the language distribution in a repository according to [linguist](https://github.com/github-linguist/linguist/) which will automatically generate a HTML span like the one below.
+[GitHub](https://github.com) will automatically generate the language distribution in a repository according to [linguist](https://github.com/github-linguist/linguist/) to generate a HTML span like the one below.
 
 import GitHubLangs from './GitHubLangs.astro'
 
 <GitHubLangs />
 
-Though this is great feature, information is aggregated into a single 'Other' category when there are too many different languages in a single repo. So I tried to write a github action workflow that would run a python script on every commit and display the language usage in the README.md file
-- Initially i tried to use a python script to generate raw html. However, Although it was working on my own markdown previews, github's README.md files do not render raw HTML elements.
-- So the next best option i could think of was to manually redraw an image which would be reflected in the README.md file referencing it
-- I had to learn a little bit of MatPlot lib and how the workflow of github's yaml files should be organized (i was only familiar with cd/ci in gitlab from university work)
-- The script works find walking through the directory, however, as order didn't matter for showing distribution, the languages might as well be sorted for maximally aesthics (i.e. sorting based on colour (more specifically the hue https://wikipedia.org/wiki/Hue#Defining_hue_in_terms_of_RGB))
+Although this fulfils my intented purpose, when too many languages are used in a single repo, infomation on some of them are aggregated into one single 'Other' category. As such, I would need to manually show the language usage myself walking through the specific directory and using the file size.
 
-import HueDraft from './HueDraft.astro'
+Initially, I wrote a [nodejs](https://nodejs.org) script that would generate the HTML element on every commit with a GitHub workflow. Using a JSON file that was a subset [linguist's yaml file](https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml) worked as intended, however, GitHub's README.md files do not render raw HTML.
 
-<HueDraft />
+So, my next idea was to redraw an image that the README.md file would reference in order to automatically update the language distribution on each commit. I decided to use python and learn a little bit of [matplotlib](https://matplotlib.org/) to generate the language distribution in a doughnut graph.
 
-- What we find is that this works 
+This script was a perfectly acceptable however, the arbitrary ordering of the [globing](https://docs.python.org/3/library/glob.html) and thus language distribution did get on my nerves so much so that I had to cave into the scope creep; I decided that I would need to sort the languages based on **colour**.
+
+#### Sorting the Languages by Colour
+Initially I tried to sort the colours by their [hue](https://wikipedia.org/wiki/Hue#Defining%20hue%20in%20terms%20of%20RGB)
 ```js
 let hue = Math.atan2(Math.sqrt(3) * (G - B), (2 * R - G - B))
 ```
-- The problem with this is that languages like Crystal (Black) and C (Grey) that with colour values which pertain to (r == g == b) will be placed on the colour wheel with no real intent. The best solution I could think of was to convert all the colours to grayscale in order to be able to compare the colours by their value. Then I would insert any whites to the lightest section and any grays / blacks into the darkest parts. However, there is a difference between perceived luminance and value (this is why HSV and HSL are distinct).
+---
+import HueDraft from './HueDraft.astro'
 
+<HueDraft />
+This worked well expect for colours that were [achromatic](https://wikipedia.org/wiki/Achromatic) (whereby `r == g == b`). The hue function would break down for these languages (Crystal and C) and so I needed another dimension for sorting.
+
+Two methods were considered for this extra dimension, [luminance](https://wikipedia.org/wiki/Luminance) and [value / lightness](https://wikipedia.org/wiki/Lightness).
 ```js
 let luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B
 let value = Math.max(R, G, B)
@@ -50,67 +55,98 @@ import HueLuminance from './HueLuminance.astro'
 
 <HueLuminance />
 
-Based on vibes, luminence is the better indicator for determining where to put the colours. Now we can just get the darkest colour by luminence and chuck our grays and blacks there. 
-
-<Image alt="language distribution" width="700" height="700" src="https://raw.githubusercontent.com/RiceL123/advent-of-code/main/script/2024.svg" style="margin-inline: auto; margin-top: 10px;"/>
-
-If more robust colour sorting is wanted in the future, I think I would use both the hue and luminance in my calculation to get to a 2D plot and from there do some [dimensionality reduction](https://en.wikipedia.org/wiki/Dimensionality_reduction) to sort them in 1 dimension.
+Looking at the two outputs, the vibes for luminance were just better because as a human, [colour temperature](https://wikipedia.org/wiki/Color_temperature) is an important factor that value seems to not care about.
 
 import ColorScatter from './ColorScatter.astro'
 
 <ColorScatter />
 
-import ColorSorted from './ColorSorted.astro'
+Though I now had 2 dimensions to sort the colours, the language distribution was only in 1 dimension. So, I decided that I would just find the grays and blacks and chuck them next to the colour of lowest luminance. This produced the final image:
 
-<ColorSorted />
+<Image alt="language distribution" width="630" height="630" src="https://raw.githubusercontent.com/RiceL123/advent-of-code/main/script/2024.svg" style="margin-inline: auto;"/>
+
+If more robust colour sorting is wanted in the future, I think I would use both the hue and luminance in my calculation to get to a 2D plot and from there do some [dimensionality reduction](https://en.wikipedia.org/wiki/Dimensionality_reduction) to sort them in 1 dimension.
+
+The GitHub workflow script can be found [here](https://github.com/RiceL123/advent-of-code/blob/main/script/readme.py) in the same aoc repo. If you know of a way to hide the commits of the [github actions user](https://github.com/actions-user) please let me know!
 
 ## The Languages
-What do I want out of a programming language?
-- Should be easy to read (meaning it is quite close to english or easy to understand)
-- Should have good documentation / hopefully someone has already had the same question on stack overflow (I will try to actively avoid any youtube tutorials because personally I learn better from the docs)
-- Plz have IntelliSense but this is fine if the error messages are helpful
-- Easy to install / setup - if I can't make it a simple shebangable script at least make it a simple `cargo new` or something
+Most languages have their specific use cases where they flourish. I will be judging them based on *✨vibes✨* according to my experience solving the advent of code problems.
+Some criteria that I would like met when using a programming language include:
+- Easy to read and write (should be close to english or common language patterns)
+- Good documentation (I will try avoid tutorials and head straight to the docs)
+- Quick installation and setup (if I can't make it a simple [shebangable](https://wikipedia.org/wiki/Shebang_(Unix)) script at least make it a simple `cargo new` or equivalent)
+- Helpful error messages ([Code completion](https://wikipedia.org/wiki/Code_completion) is nice as well)
 - I don't want to be fighting the language or compiler, i want to be fighting the problem at hand
-- specific miscellaneous good to haves: functional paradigm support, lambdas, destructuring, types or type hints
-
+- **Other requirements**: functional paradigm support, lambdas, destructuring, types or type hints
 ### Day 01: [Haskell](https://haskell.org/)
-Haskell is pretty fun i like
-Hoogle good
-<StarRating rating={aoc24_languages.Haskell.rating} icon={aoc24_languages.Haskell.icon} />
-TLDR: Functional but i'm not actually a functional bro so unlugs
+I took a course at uni on Haskell with a terrible professor as my first introduction to pure functional programming. Although assignments were released weeks after they should have been, I still found this new way of thinking and expanding my mind to be satisfying (though some of more mathy concepts flew right over my head). Using the IO monad and the simplicity of day01's problem made this a pleasant experience. Additionally, resources like Hoogle were lovely to work with.
+<StarRating rating={aoc24_languages.Haskell.rating} icon={aoc24_languages.Haskell.icon} filename={aoc24_languages.Haskell.file}/>
+TLDR: Its cool paradigm but I don't why I actively choose to use it in real world applications
+<Solution file={aoc24_languages.Haskell.file} lang="haskell" />
 ### Day 02: [Lua](https://lua.org/)
 There was a lot of hype around Lua. All the youngings be using it for roblox and I also see it in neovim and other random places. Very easy to setup
 It was good but I would prefer some more batteries included if you know what i mean. It was really easy to setup very nice
 
 <StarRating rating={aoc24_languages.Lua.rating} icon={aoc24_languages.Lua.icon} />
 TLDR: not bad good size (literally very small)
+<Solution file={aoc24_languages.Lua.file} lang="lua" />
 ### Day 03: [Bash](https://tiswww.case.edu/php/chet/bash/bashref.html)
 Gotta love piping like a maniac
 
 <StarRating rating={aoc24_languages.Bash.rating} icon={aoc24_languages.Bash.icon} />
 TLDR: Your mother
+<Solution file={aoc24_languages.Bash.file} lang="bash" />
 ### Day 04: [Go](https://go.dev/)
 Felt like a c kinda solution
+<StarRating rating={aoc24_languages.Go.rating} icon={aoc24_languages.Go.icon} />
+TLDR: Your mother
+<Solution file={aoc24_languages.Go.file} lang="go" />
 ### Day 05: [C#](https://learn.microsoft.com/dotnet/csharp/)
-Love the functional thingos
+Love the functional thingos<StarRating rating={aoc24_languages["C#"].rating} icon={aoc24_languages["C#"].icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages["C#"].file} lang="csharp" />
 ### Day 06: [C++](https://isocpp.org/)
 not bad
+<StarRating rating={aoc24_languages["C++"].rating} icon={aoc24_languages["C++"].icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages["C++"].file} lang="cpp" />
 ### Day 07: [Java](https://oracle.com/java/)
 streams for days - isn't that bad however, i do understand that java has been putting in the work for jdk 17 which is what i was using
+<StarRating rating={aoc24_languages.Java.rating} icon={aoc24_languages.Java.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Java.file} lang="java" />
 ### Day 08: [TypeScript](https://typescriptlang.org/)
 Is good nothing out of ordinary
+<StarRating rating={aoc24_languages.TypeScript.rating} icon={aoc24_languages.TypeScript.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.TypeScript.file} lang="ts" />
 ### Day 09: [C](https://gnu.org/software/gnu-c-manual/)
 Kinda a scuffed solution but yeah in the end you gotta pay respects to the OG
+<StarRating rating={aoc24_languages.C.rating} icon={aoc24_languages.C.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.C.file} lang="c" />
 ### Day 10: [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript)
 Javascript so nice to use when making simple things. Did this challenge in the airport very nice
 might be one of my fav implementations of functional
+<StarRating rating={aoc24_languages.JavaScript.rating} icon={aoc24_languages.JavaScript.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.JavaScript.file} lang="js" />
 ### Day 11: [Scala](https://scala-lang.org)
 I'm not too familiar with dp, so I fell back onto a language i was familiar with as a safe guard
 Only later did i directly translate this code to scala. It was a pretty simple process. Love that scala supports functional style programs
+<StarRating rating={aoc24_languages.Scala.rating} icon={aoc24_languages.Scala.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Scala.file} lang="scala" />
 ### Day 12: [Rust](https://rust-lang.org/)
 Rust my beloved. The errors are so helpful! awesome documentation! i can't stop glazing rust
+<StarRating rating={aoc24_languages.Rust.rating} icon={aoc24_languages.Rust.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Rust.file} lang="rust" />
 ### Day 13: [Ruby](https://ruby-lang.org/)
 Ruby is great. When doing some arithmetic, the numbers seemed to be stored as quotients and so I had no floating point errors. It was amazing! Syntatically simple pre nice
+<StarRating rating={aoc24_languages.Ruby.rating} icon={aoc24_languages.Ruby.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Ruby.file} lang="ruby" />
 ### Day 14: [Zig](https://ziglang.org/)
 There was a lot of hype of
 Documentation feels
@@ -121,8 +157,14 @@ First day of zig not really liking it. Second day of zig liking it a lot more. T
 Needa give Zig some time to marinate. Would probably only go back to it if it passes v1.0
 
 I love how the problem is just like 'find the christmas tree that'll appear' without any clear deterministic instructions or examples
+<StarRating rating={aoc24_languages.Zig.rating} icon={aoc24_languages.Zig.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Zig.file} lang="zig" />
 ### Day 15: [Python](https://python.org/)
 Bruh zig had me so demotivated
+<StarRating rating={aoc24_languages.Python.rating} icon={aoc24_languages.Python.icon} />
+TLDR: Python goated i like the zen of python philosophy by brackets >> indents
+<Solution file={aoc24_languages.Python.file} lang="python" />
 ### Day 16: [Kotlin](https://kotlinlang.org)
 Hate how difficult it was just to find the cli compiler like bro i don't want your IDE mate. Bruh binary is just like 200MB and its a pain to setup and run and just running hello world i needa install even more dependencies?? The compilation times are outrageously slow
 
@@ -130,11 +172,16 @@ Doesn't have a standard file system? Maybe its cuz its tryna target multiple pla
 
 Kotlin doesn't have a priority queue or min-heap. All goods because I can just drop in the java priority queue which is pretty cool
 
-might be the worst language so far
+<StarRating rating={aoc24_languages.Kotlin.rating} icon={aoc24_languages.Kotlin.icon} />
+TLDR: Worst language in terms of setup. Would only use if I had Intellij
+<Solution file={aoc24_languages.Kotlin.file} lang="kotlin" />
 ### Day 17: [Dart](https://dart.dev)
 why does apt-get take 4 steps???? bruh imma just download the binary (bruh its like 200 MB as well) (takes less steps lmao)
 bruh why is analytics opt-out and not opt-in. typically google ig 💀
 overall pretty nice language, shebangable, destructuring and what not pretty mid nothing too good nothing too bad
+<StarRating rating={aoc24_languages.Dart.rating} icon={aoc24_languages.Dart.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Dart.file} lang="dart" />
 ### Day 18: [Elixir](https://elixir-lang.org)
 Very easy download only taking like 7 mb and easy to pick up syntatically
 Functional
@@ -145,11 +192,20 @@ functional bfs is kinda based - I looked up a recusive solution and it didn't se
 Didn't really understand unfold so played aroud in iex for a bit. Also very nice
 docs are pretty good
 
-Overall really liked it: I would like to try 
+Overall really liked it: 
+<StarRating rating={aoc24_languages.Elixir.rating} icon={aoc24_languages.Elixir.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Elixir.file} lang="elixir" />
 ### Day 19: [Squirrel](http://squirrel-lang.org/)
 Squirrel prolly one of the most obscure languages on this list
+<StarRating rating={aoc24_languages.Squirrel.rating} icon={aoc24_languages.Squirrel.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Squirrel.file} lang="squirrel" />
 ### Day 20: [Nim](https://nim-lang.org/)
 Nim was nice as to code in. I really liked
+<StarRating rating={aoc24_languages.Nim.rating} icon={aoc24_languages.Nim.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Nim.file} lang="nim" />
 ### Day 21: [Crystal](https://crystal-lang.org/)
 Crystal is ruby like language -
 documentation is awesome
@@ -159,11 +215,17 @@ has functional features lovely
 Overall crystal is great
 
 implicit returns?
+<StarRating rating={aoc24_languages.Crystal.rating} icon={aoc24_languages.Crystal.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Crystal.file} lang="crystal" />
 ### Day 22: [Gleam](https://gleam.run/)
 bruh why i gotta install erlang anyways...
 feels like rust
 bruh where is file system (fs) - gleam_erlang remove fs in 0.24? `gleam add simplifile` works ig
 no for loops lmao - ig thats the functional bro mindset
+<StarRating rating={aoc24_languages.Gleam.rating} icon={aoc24_languages.Gleam.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Gleam.file} lang="gleam" />
 ### Day 23: [Raku](https://raku.org/)
 Perl 6 apparently? well happy i aint stuck in the programming of the 90s lmao.
 Easy to setup & you can use hashbang lovely
@@ -177,12 +239,18 @@ if $visited !(cont) $neighbour and @curr_arr ∌ $neighbour and all @curr_arr>>.
 In the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python), you'll see that one of their philosophies is `There should be one-- and preferably only one --obvious way to do it.` Feels like Raku went the opposite direction xD.
 
 overall pretty nice lmao
+<StarRating rating={aoc24_languages.Raku.rating} icon={aoc24_languages.Raku.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Raku.file} lang="raku" />
 ### Day 24: [Odin](https://odin-lang.org/)
 feels very much like go - uses runes & ppl in odin discord use go syntax highlighting since odin not supported there
 documentation is decent but defs could be better - imited examples
 [Odin has non-capturing lambda produres](https://odin-lang.org/docs/faq/#does-odin-have-closures)
 
 haven't made a use after free error in so long until using this lang lmao
+<StarRating rating={aoc24_languages.Odin.rating} icon={aoc24_languages.Odin.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Odin.file} lang="go" />
 ### Day 25: [Mojo](https://modular.com/mojo)
 Get pranked this is just python with a compiler xD
 Looking at the favicon i keep mistaking it for MDN lmao (They are literally the same)
@@ -204,7 +272,9 @@ Hate how you use my_var[] for dereferencing pointers
 Functions like String.replace just doesn't work
 
 Worst language
-
+<StarRating rating={aoc24_languages.Mojo.rating} icon={aoc24_languages.Mojo.icon} />
+TLDR: Wow I actually wanna use functional code irl
+<Solution file={aoc24_languages.Mojo.file} lang="mojo" />
 ## Conclusion
 
 lets rank these based on nothing but vibes
@@ -218,7 +288,5 @@ The take away from all of this in regards to languages is that most of them are 
 import LangTree from './LangTree.astro'
 
 <LangTree />
-
-Also if you would like, choose your favourite language compare to others that have come this far in the blog and voted as well!
 
 Merry Christmas everyone ~!
