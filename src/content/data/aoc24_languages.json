@@ -7,7 +7,7 @@
     "suffix": [".hs"],
     "size": 1014,
     "file": "day01.hs",
-    "rating": 7.7
+    "rating": 5.7
   },
   "Lua": {
     "day": 2,
@@ -17,7 +17,7 @@
     "suffix": [".lua"],
     "size": 1300,
     "file": "day02.lua",
-    "rating": 7.3
+    "rating": 7.7
   },
   "Bash": {
     "day": 3,
@@ -27,7 +27,7 @@
     "suffix": [".sh"],
     "size": 353,
     "file": "day03.sh",
-    "rating": 6.5
+    "rating": 7
   },
   "Go": {
     "day": 4,
@@ -37,7 +37,7 @@
     "suffix": [".go"],
     "size": 2237,
     "file": "day04.go",
-    "rating": 6.8
+    "rating": 6.6
   },
   "C#": {
     "day": 5,
@@ -47,7 +47,7 @@
     "suffix": [".cs"],
     "size": 3197,
     "file": "day05.cs",
-    "rating": 6.9
+    "rating": 7.3
   },
   "C++": {
     "day": 6,
@@ -57,7 +57,7 @@
     "suffix": [".cpp"],
     "size": 4924,
     "file": "day06.cpp",
-    "rating": 6.7
+    "rating": 6.9
   },
   "Java": {
     "day": 7,
@@ -67,7 +67,7 @@
     "suffix": [".java"],
     "size": 3694,
     "file": "day07.java",
-    "rating": 5.2
+    "rating": 7.2
   },
   "TypeScript": {
     "day": 8,
@@ -77,7 +77,7 @@
     "suffix": [".ts"],
     "size": 2860,
     "file": "day08.ts",
-    "rating": 8.1
+    "rating": 8
   },
   "C": {
     "day": 9,
@@ -87,7 +87,7 @@
     "suffix": [".c", ".h"],
     "size": 2658,
     "file": "day09.c",
-    "rating": 8.4
+    "rating": 6.7
   },
   "JavaScript": {
     "day": 10,
@@ -107,7 +107,7 @@
     "suffix": [".scala"],
     "size": 1114,
     "file": "day11.scala",
-    "rating": 6.9
+    "rating": 7.5
   },
   "Rust": {
     "day": 12,
@@ -127,7 +127,7 @@
     "suffix": [".rb"],
     "size": 1547,
     "file": "day13.rb",
-    "rating": 7.1
+    "rating": 8.4
   },
   "Zig": {
     "day": 14,
@@ -137,7 +137,7 @@
     "suffix": [".zig"],
     "size": 3682,
     "file": "day14.zig",
-    "rating": 7
+    "rating": 6.9
   },
   "Python": {
     "day": 15,
@@ -147,7 +147,7 @@
     "suffix": [".py"],
     "size": 3580,
     "file": "day15.py",
-    "rating": 7.8
+    "rating": 8.6
   },
   "Kotlin": {
     "day": 16,
@@ -167,7 +167,7 @@
     "suffix": [".dart"],
     "size": 2213,
     "file": "day17.dart",
-    "rating": 7.2
+    "rating": 7.5
   },
   "Elixir": {
     "day": 18,
@@ -197,7 +197,7 @@
     "suffix": [".nim", ".nimble", ".nimrod"],
     "size": 2746,
     "file": "day20.nim",
-    "rating": 8.8
+    "rating": 9
   },
   "Crystal": {
     "day": 21,
@@ -217,7 +217,7 @@
     "suffix": [".gleam"],
     "size": 2430,
     "file": "day22.gleam",
-    "rating": 6.1
+    "rating": 5.8
   },
   "Raku": {
     "day": 23,
@@ -227,7 +227,7 @@
     "suffix": [".raku", ".p6", ".6pl", ".pl6"],
     "size": 2499,
     "file": "day23.raku",
-    "rating": 5.9
+    "rating": 5.2
   },
   "Odin": {
     "day": 24,
@@ -237,7 +237,7 @@
     "suffix": [".odin"],
     "size": 3579,
     "file": "day24.odin",
-    "rating": 5.7
+    "rating": 5.1
   },
   "Mojo": {
     "day": 25,
@@ -247,6 +247,6 @@
     "suffix": [".mojo"],
     "size": 2688,
     "file": "day25.mojo",
-    "rating": 0.3
+    "rating": 1
   }
 }

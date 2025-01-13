@@ -21,7 +21,10 @@ const max = Math.max(...Object.values(languages).map((x) => x.size));
               style={`height: 30px;border-radius: 0; width: 30px; fill: ${x.color}`}
             />
           </a>
-          <a style="color:black" href={`#day-${x.file.substring(3, 5)}-${lang.replaceAll(/[+#]/g, "").toLowerCase()}`}>
+          <a
+            style="color:black"
+            href={`#day-${x.file.substring(3, 5)}-${lang.replaceAll(/[+#]/g, "").toLowerCase()}`}
+          >
             {x.day}. {lang}
           </a>
         </div>
