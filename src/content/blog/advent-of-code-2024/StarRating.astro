@@ -1,0 +1,22 @@
+---
+const { rating, icon } = Astro.props;
+const rating_int = Math.round(rating);
+---
+
+<div style="display: flex; gap: 10px; align-items: center;">
+  <img src={icon} height="30px" width="30px" style="border-radius: 0px;" />
+  <div>Overall Rating: {rating}</div>
+  <div
+    style="color: white; background-color: #0f0f23; padding-inline: 10px; border-radius: 7px; width:min-content; display: flex; height:30px; align-items: center;"
+  >
+    <div
+      style="margin-top: 6px;font-family:monospace;font-size:larger;color: #ffff66; text-shadow: 0 0 5px #ffff66, 0 0 10px #ffff66;"
+    >
+      {"*".repeat(rating_int)}
+    </div><div
+      style="margin-top: 6px;font-family:monospace;font-size:larger;color: #666"
+    >
+      {"*".repeat(10 - rating_int)}
+    </div>
+  </div>
+</div>

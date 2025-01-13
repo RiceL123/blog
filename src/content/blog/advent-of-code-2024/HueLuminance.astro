@@ -1,0 +1,57 @@
+---
+import aoc24_languages from "../../data/aoc24_languages.json";
+
+function hexToRGB(color: String) {
+  color = color[0] == "#" ? color.substring(1) : color;
+  var R = parseInt(color.substring(0, 2), 16) / 255;
+  var G = parseInt(color.substring(2, 4), 16) / 255;
+  var B = parseInt(color.substring(4, 6), 16) / 255;
+  return [R, G, B];
+}
+
+function getLuminance(color: String) {
+  const [R, G, B] = hexToRGB(color);
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+}
+
+function getValue(color: String) {
+  const [R, G, B] = hexToRGB(color);
+  return Math.max(R, G, B);
+}
+
+const [langs_lum, langs_val] = [getLuminance, getValue].map((func) =>
+  Object.entries(aoc24_languages).sort(
+    ([_a, a], [_b, b]) => func(a.color) - func(b.color)
+  )
+);
+
+const total = langs_lum.map(([_, x]) => x.size).reduce((acc, x) => acc + x);
+---
+
+<p style="text-align: center; margin-bottom: 2px;">Luminance</p>
+<span
+  style="display: flex; height: 12px; overflow-x: hidden; ;background-color: #e1e4e8; border-radius: 10px; box-shadow: inset 0 -1px 0 rgba(27,31,35,.12); margin-inline: 20px;"
+>
+  {
+    langs_lum.map(([lang, x]) => (
+      <span
+        style={`background-color:${x.color};width: ${(x.size / total) * 100}%; display: flex; justify-content:center;`}
+        aria-label={`${lang} ${x.size}`}
+      />
+    ))
+  }
+</span>
+
+<p style="text-align: center; margin-bottom: 2px;">Value</p>
+<span
+  style="display: flex; height: 12px; overflow-x: hidden; ;background-color: #e1e4e8; border-radius: 10px; box-shadow: inset 0 -1px 0 rgba(27,31,35,.12); margin-inline: 20px;"
+>
+  {
+    langs_val.map(([lang, x]) => (
+      <span
+        style={`background-color:${x.color};width: ${(x.size / total) * 100}%; display: flex; justify-content:center;`}
+        aria-label={`${lang} ${x.size}`}
+      />
+    ))
+  }
+</span>

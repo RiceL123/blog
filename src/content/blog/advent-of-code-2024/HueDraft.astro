@@ -1,0 +1,33 @@
+---
+import aoc24_languages from "../../data/aoc24_languages.json";
+
+function getHue(color: String) {
+  var R = parseInt(color.substring(0, 2), 16) / 255;
+  var G = parseInt(color.substring(2, 4), 16) / 255;
+  var B = parseInt(color.substring(4, 6), 16) / 255;
+
+  // https://en.wikipedia.org/wiki/Hue#Defining_hue_in_terms_of_RGB
+  let hue = Math.atan2(Math.sqrt(3) * (G - B), 2 * R - G - B);
+  return hue;
+}
+
+const langs = Object.entries(aoc24_languages).sort(
+  ([_a, a], [_b, b]) =>
+    getHue(b.color.substring(1)) - getHue(a.color.substring(1))
+);
+const total = langs.map(([_, x]) => x.size).reduce((acc, x) => acc + x);
+---
+
+<p style="text-align: center; margin-bottom: 2px;">Hue</p>
+<span
+  style="display: flex; height: 12px; overflow-x: hidden; ;background-color: #e1e4e8; border-radius: 10px; box-shadow: inset 0 -1px 0 rgba(27,31,35,.12); margin-inline: 20px;"
+>
+  {
+    langs.map(([lang, x]) => (
+      <span
+        style={`background-color:${x.color};width: ${(x.size / total) * 100}%; display: flex; justify-content:center;`}
+        aria-label={`${lang} ${x.size}`}
+      />
+    ))
+  }
+</span>

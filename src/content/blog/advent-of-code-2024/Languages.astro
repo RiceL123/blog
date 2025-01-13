@@ -1,0 +1,42 @@
+---
+import languages from "../../data/aoc24_languages.json";
+const max = Math.max(...Object.values(languages).map((x) => x.size));
+---
+
+<div
+  style="display: grid; gap: 10px; border-radius: 20px;"
+  class="grid-cols-2 lg:grid-cols-5"
+>
+  {
+    Object.entries(languages).map(([lang, x]) => (
+      <div
+        style="display: flex; flex-direction: column; padding: 10px; border-radius: 10px; background-color: white;"
+        class={`bg-[${x.color}] hover:shadow-lg shadow hover:scale-125 transition duration-75`}
+      >
+        <div style="display: flex; gap: 4px">
+          <a href={x.link} style="margin: 2px;">
+            <img
+              src={x.icon}
+              alt={lang}
+              style={`height: 30px;border-radius: 0; width: 30px; fill: ${x.color}`}
+            />
+          </a>
+          <a
+            style="color:black"
+            href={`#day-${x.file.substring(3, 5)}-${lang.replaceAll(/[+#]/g, "").toLowerCase()}`}
+          >
+            {x.day}. {lang}
+          </a>
+        </div>
+        <div style="width: 100%">
+          <span style="display: flex; height: 6px; overflow: hidden; border-radius: 10px;">
+            <span
+              style={`background-color:${x.color} !important;width: ${(x.size / max) * 100}%; border-radius: 10px`}
+              aria-label={`${lang} ${x.size}`}
+            />
+          </span>
+        </div>
+      </div>
+    ))
+  }
+</div>

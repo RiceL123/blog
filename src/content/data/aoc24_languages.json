@@ -1,0 +1,252 @@
+{
+  "Haskell": {
+    "day": 1,
+    "link": "https://haskell.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/haskell/haskell-original.svg",
+    "color": "#5e5086",
+    "suffix": [".hs"],
+    "size": 1014,
+    "file": "day01.hs",
+    "rating": 5.7
+  },
+  "Lua": {
+    "day": 2,
+    "link": "https://lua.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg",
+    "color": "#000080",
+    "suffix": [".lua"],
+    "size": 1300,
+    "file": "day02.lua",
+    "rating": 7.7
+  },
+  "Bash": {
+    "day": 3,
+    "link": "https://tiswww.case.edu/php/chet/bash/bashref.html",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg",
+    "color": "#89e051",
+    "suffix": [".sh"],
+    "size": 353,
+    "file": "day03.sh",
+    "rating": 7
+  },
+  "Go": {
+    "day": 4,
+    "link": "https://go.dev/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg",
+    "color": "#00ADD8",
+    "suffix": [".go"],
+    "size": 2237,
+    "file": "day04.go",
+    "rating": 6.6
+  },
+  "C#": {
+    "day": 5,
+    "link": "https://learn.microsoft.com/dotnet/csharp/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
+    "color": "#178600",
+    "suffix": [".cs"],
+    "size": 3197,
+    "file": "day05.cs",
+    "rating": 7.3
+  },
+  "C++": {
+    "day": 6,
+    "link": "https://isocpp.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
+    "color": "#f34b7d",
+    "suffix": [".cpp"],
+    "size": 4924,
+    "file": "day06.cpp",
+    "rating": 6.9
+  },
+  "Java": {
+    "day": 7,
+    "link": "https://oracle.com/java/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
+    "color": "#b07219",
+    "suffix": [".java"],
+    "size": 3694,
+    "file": "day07.java",
+    "rating": 7.2
+  },
+  "TypeScript": {
+    "day": 8,
+    "link": "https://typescriptlang.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+    "color": "#3178c6",
+    "suffix": [".ts"],
+    "size": 2860,
+    "file": "day08.ts",
+    "rating": 8
+  },
+  "C": {
+    "day": 9,
+    "link": "https://gnu.org/software/gnu-c-manual/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg",
+    "color": "#555555",
+    "suffix": [".c", ".h"],
+    "size": 2658,
+    "file": "day09.c",
+    "rating": 6.7
+  },
+  "JavaScript": {
+    "day": 10,
+    "link": "https://developer.mozilla.org/docs/Web/JavaScript",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+    "color": "#f1e05a",
+    "suffix": [".js"],
+    "size": 2073,
+    "file": "day10.js",
+    "rating": 9.1
+  },
+  "Scala": {
+    "day": 11,
+    "link": "https://scala-lang.org",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg",
+    "color": "#c22d40",
+    "suffix": [".scala"],
+    "size": 1114,
+    "file": "day11.scala",
+    "rating": 7.5
+  },
+  "Rust": {
+    "day": 12,
+    "link": "https://rust-lang.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg",
+    "color": "#dea584",
+    "suffix": [".rs"],
+    "size": 3602,
+    "file": "day12.rs",
+    "rating": 9.3
+  },
+  "Ruby": {
+    "day": 13,
+    "link": "https://ruby-lang.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg",
+    "color": "#701516",
+    "suffix": [".rb"],
+    "size": 1547,
+    "file": "day13.rb",
+    "rating": 8.4
+  },
+  "Zig": {
+    "day": 14,
+    "link": "https://ziglang.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zig/zig-original.svg",
+    "color": "#ec915c",
+    "suffix": [".zig"],
+    "size": 3682,
+    "file": "day14.zig",
+    "rating": 6.9
+  },
+  "Python": {
+    "day": 15,
+    "link": "https://python.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+    "color": "#3572A5",
+    "suffix": [".py"],
+    "size": 3580,
+    "file": "day15.py",
+    "rating": 8.6
+  },
+  "Kotlin": {
+    "day": 16,
+    "link": "https://kotlinlang.org",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg",
+    "color": "#A97BFF",
+    "suffix": [".kt"],
+    "size": 3727,
+    "file": "day16.kt",
+    "rating": 3.2
+  },
+  "Dart": {
+    "day": 17,
+    "link": "https://dart.dev",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg",
+    "color": "#00B4AB",
+    "suffix": [".dart"],
+    "size": 2213,
+    "file": "day17.dart",
+    "rating": 7.5
+  },
+  "Elixir": {
+    "day": 18,
+    "link": "https://elixir-lang.org",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/elixir/elixir-original.svg",
+    "color": "#6e4a7e",
+    "suffix": [".exs", ".ex"],
+    "size": 2641,
+    "file": "day18.exs",
+    "rating": 9.2
+  },
+  "Squirrel": {
+    "day": 19,
+    "link": "http://squirrel-lang.org/",
+    "icon": "http://squirrel-lang.org/images/simple_nut.png",
+    "color": "#800000",
+    "suffix": [".nut"],
+    "size": 1391,
+    "file": "day19.nut",
+    "rating": 6.3
+  },
+  "Nim": {
+    "day": 20,
+    "link": "https://nim-lang.org/",
+    "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nim/nim-original.svg",
+    "color": "#ffc200",
+    "suffix": [".nim", ".nimble", ".nimrod"],
+    "size": 2746,
+    "file": "day20.nim",
+    "rating": 9
+  },
+  "Crystal": {
+    "day": 21,
+    "link": "https://crystal-lang.org/",
+    "icon": "https://crystal-lang.org/favicon.ico",
+    "color": "#000000",
+    "suffix": [".cr"],
+    "size": 2023,
+    "file": "day21.cr",
+    "rating": 9
+  },
+  "Gleam": {
+    "day": 22,
+    "link": "https://gleam.run",
+    "icon": "https://gleam.run/images/lucy/lucy.svg",
+    "color": "#ffaff3",
+    "suffix": [".gleam"],
+    "size": 2430,
+    "file": "day22.gleam",
+    "rating": 5.8
+  },
+  "Raku": {
+    "day": 23,
+    "link": "https://raku.org/",
+    "icon": "https://raw.githubusercontent.com/Raku/mu/955caf36c4387c2f39cff15552f7f69bca47f6d4/misc/camelia.svg",
+    "color": "#0000fb",
+    "suffix": [".raku", ".p6", ".6pl", ".pl6"],
+    "size": 2499,
+    "file": "day23.raku",
+    "rating": 5.2
+  },
+  "Odin": {
+    "day": 24,
+    "link": "https://odin-lang.org/",
+    "icon": "https://odin-lang.org/favicon.svg",
+    "color": "#60AFFE",
+    "suffix": [".odin"],
+    "size": 3579,
+    "file": "day24.odin",
+    "rating": 5.1
+  },
+  "Mojo": {
+    "day": 25,
+    "link": "https://modular.com/mojo",
+    "icon": "https://cdn.prod.website-files.com/63f9f100025c058594957cca/6426d9e5cf7f8951ae98bc59_webclip.svg",
+    "color": "#ff4c1f",
+    "suffix": [".mojo"],
+    "size": 2688,
+    "file": "day25.mojo",
+    "rating": 1
+  }
+}

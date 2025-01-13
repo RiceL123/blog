@@ -1,0 +1,82 @@
+<canvas
+  style="height: 350px; width: 350px; margin-inline: auto"
+  id="color-scatter"></canvas>
+<script>
+  import languages from "../../data/aoc24_languages.json";
+  import {
+    Chart,
+    ScatterController,
+    PointElement,
+    LinearScale,
+  } from "chart.js";
+  Chart.register(ScatterController, PointElement, LinearScale);
+
+  function hexToRGB(color: String) {
+    color = color[0] == "#" ? color.substring(1) : color;
+    var R = parseInt(color.substring(0, 2), 16);
+    var G = parseInt(color.substring(2, 4), 16);
+    var B = parseInt(color.substring(4, 6), 16);
+    return [R, G, B].map((x) => x / 255);
+  }
+
+  function getHue(color: String) {
+    const [R, G, B] = hexToRGB(color);
+    let degrees =
+      Math.atan2(Math.sqrt(3) * (G - B), 2 * R - G - B) * (180 / Math.PI);
+
+    degrees = (60 - degrees + 280) % 360; // ngl these are random numbers
+
+    return R != G || G != B ? degrees : 0;
+  }
+
+  function getLuminance(color: String) {
+    const [R, G, B] = hexToRGB(color);
+    return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const chartElement = document.getElementById(
+      "color-scatter"
+    ) as HTMLCanvasElement;
+    if (!chartElement) {
+      return;
+    }
+    const ctx = chartElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    new Chart(ctx, {
+      type: "scatter",
+      data: {
+        labels: Object.entries(languages).map(([lang, _]) => lang),
+        datasets: [
+          {
+            label: "Hue, Luminance",
+            data: Object.entries(languages).map(([_, x]) => ({
+              x: getLuminance(x.color),
+              y: getHue(x.color),
+            })),
+            backgroundColor: Object.entries(languages).map(([_, x]) => x.color),
+            pointRadius: 8,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          x: {
+            title: { display: true, text: "Luminance (0 = Black, 1 = White)" },
+          },
+          y: {
+            suggestedMax: 0,
+            suggestedMin: 360,
+            title: {
+              display: true,
+              text: "Hue",
+            },
+          },
+        },
+      },
+    });
+  });
+</script>

@@ -1,0 +1,32 @@
+---
+import aoc25_languages from "../../data/aoc24_languages.json";
+const langs = Object.entries(aoc25_languages).filter(
+  ([lang, _]) => lang != "Gleam"
+); // reserve gleam for star
+const tree = [
+  [Object.entries(aoc25_languages).find(([lang, _]) => lang == "Gleam")!],
+  langs.slice(0, 2),
+  langs.slice(2, 5),
+  langs.slice(5, 9),
+  langs.slice(9, 12),
+  langs.slice(12, 18),
+  langs.slice(18, 23),
+  langs.slice(23),
+];
+---
+
+<div style="width: 100%; padding: 30px">
+  {
+    tree.map((row) => (
+      <div style="display: flex; margin-inline: auto; justify-content: center;">
+        {row.map(([lang, x]) => (
+          <img
+            src={x.icon}
+            alt={lang}
+            style={`height: 30px;border-radius: 0; width: 30px; fill: ${x.color}; margin: 1px`}
+          />
+        ))}
+      </div>
+    ))
+  }
+</div>
