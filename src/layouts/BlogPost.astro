@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { db, eq, MetaData } from 'astro:db';
+import { db, eq, sql, MetaData } from "astro:db";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -10,13 +10,21 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, heroImage, pubDate } = Astro.props;
 
 const { slug } = Astro.params;
-const metaData = await db.select().from(MetaData).where(eq(MetaData.blog, slug));
-console.log(metaData);
+const res = await db
+  .insert(MetaData)
+  .values({ blog: slug!, views: 1, likes: 0 })
+  .onConflictDoUpdate({
+    target: MetaData.blog,
+    set: { views: sql`${MetaData.views} + 1` },
+  })
+  .returning();
+
+const metaData = res[0];
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title="width:" 100%; {title} description={description} />
+    <BaseHead title="width:" 100%; {title} description={description} image={heroImage} />
     <style>
       main {
         width: auto;
@@ -76,8 +84,8 @@ console.log(metaData);
         </div>
         <div class="prose">
           <div class="title">
-            <div>views: {metaData[0].views}</div>
-            <div>likes: {metaData[0].likes}</div>
+            <div>views: {metaData.views}</div>
+            <div>likes: {metaData.likes}</div>
             <div class="date">
               <div>{pubDate}</div>
             </div>
