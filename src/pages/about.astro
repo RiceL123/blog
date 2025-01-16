@@ -1,15 +1,58 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { db, sql, MetaData } from "astro:db";
+import { sum } from "astro:db";
+import { count } from "astro:db";
+
+const res = await db
+  .select({
+    total_blogs: count(MetaData.blog),
+    total_views: sum(MetaData.views),
+    total_likes: sum(MetaData.likes),
+  })
+  .from(MetaData);
+const metaDataAgg = res[0];
 ---
 
-<Layout
-  title="About Eric L"
-  description="RiceL"
-  pubDate="10 Dec 24"
-  heroImage="/blog-placeholder-about.jpg"
->
-  <pre>RiceL123 != Eric L</pre>
-  <p>Sometimes I code</p>
-  <p>Sometimes I draw</p>
-  <p>Maybe I write about it or something else</p>
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div>
+        <p>I am Eric L</p>
+        <p>Sometimes I code</p>
+        <p>Sometimes I draw</p>
+        <p>Sometimes I write</p>
+      </div>
+      <div>
+        <div># blogs: {metaDataAgg.total_blogs}</div>
+        <div>total views: {metaDataAgg.total_views}</div>
+        <div>total likes: {metaDataAgg.total_likes}</div>
+      </div>
+      <a href="https://github.com/RiceL123/blog">See repo on GitHub ></a>
+      <div class="pl-4" style="font-size: 0.8em;">
+        <div>
+          <span class="font-bold">Built with:</span>
+          <a href="https://astro.build">Astro</a>,
+          <a href="https://tailwindcss.com">Tailwind css</a>,
+          <a href="https://mdxjs.com/">MDX</a>,
+          <a href="https://docs.astro.build/en/guides/astro-db/">Astro DB</a> /
+          <a href="https://orm.drizzle.team">Drizzle ORM</a> and
+          <a href="https://turso.tech/libsql">libSQL (hosted by Turso)</a>
+        </div>
+        <div>
+          <span class="font-bold">Deployed with:</span>
+          <a href="https://vercel.com/">Vercel</a>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

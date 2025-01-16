@@ -1,17 +1,46 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { db, sql, eq, MetaData } from "astro:db";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-
+import Eye from "../images/Eye.astro";
+import Heart from "../images/Heart.astro";
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, heroImage, pubDate } = Astro.props;
+
+const { slug } = Astro.params;
+const res = await db
+  .insert(MetaData)
+  .values({ blog: slug!, views: 1, likes: 0 })
+  .onConflictDoUpdate({
+    target: MetaData.blog,
+    set: { views: sql`${MetaData.views} + 1` },
+  })
+  .returning();
+
+const metaData = res[0];
+
+async function incrementLikes(blogSlug: string) {
+  const updatedLikes = await db
+    .update(MetaData)
+    .set({ likes: sql`${MetaData.likes} + 1` })
+    .where(eq(MetaData.blog, blogSlug))
+    .returning();
+  return updatedLikes[0];
+}
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title="width:" 100%; {title} description={description} />
+    <BaseHead
+      title="width:"
+      100%;
+      {title}
+      description={description}
+      image={heroImage}
+    />
     <style>
       main {
         width: auto;
@@ -75,6 +104,22 @@ const { title, description, heroImage, pubDate } = Astro.props;
               <div>{pubDate}</div>
             </div>
             <h1>{title}</h1>
+            <div class="flex gap-6 mb-4">
+              <div class="flex gap-2 items-center">
+                <Eye />
+                <p style="margin-bottom: 0;">
+                  {metaData.views}
+                </p>
+              </div>
+              <div class="flex gap-2 items-center">
+                <button id="like-button">
+                  <Heart />
+                </button>
+                <p style="margin-bottom: 0;" id="like-count">
+                  {metaData.likes}
+                </p>
+              </div>
+            </div>
             <hr />
           </div>
           <slot />
@@ -84,3 +129,14 @@ const { title, description, heroImage, pubDate } = Astro.props;
     <Footer />
   </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const likeBtn = document.querySelector("#like-button");
+    const likeCount = document.querySelector("#like-count");
+
+    likeBtn?.addEventListener("click", async () => {
+      console.log("todo!(increment likes in db)");
+    });
+  });
+</script>
