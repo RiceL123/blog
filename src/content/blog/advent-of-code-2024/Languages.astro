@@ -19,6 +19,8 @@ const max = Math.max(...Object.values(languages).map((x) => x.size));
               src={x.icon}
               alt={lang}
               style={`height: 30px;border-radius: 0; width: 30px; fill: ${x.color}`}
+              decoding="async"
+              loading="lazy"
             />
           </a>
           <a
