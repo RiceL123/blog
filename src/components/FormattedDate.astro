@@ -1,0 +1,13 @@
+---
+const { date, classStyle } = Astro.props;
+---
+
+<div class={`text-gray-500 m-0 ${classStyle}`}>
+  {
+    date && date.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  }
+</div>

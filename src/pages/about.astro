@@ -3,9 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { db, sql, MetaData } from "astro:db";
-import { sum } from "astro:db";
-import { count } from "astro:db";
+import { db, sql, sum, count, MetaData } from "astro:db";
 
 const res = await db
   .select({
@@ -26,16 +24,18 @@ const metaDataAgg = res[0];
     <Header />
     <main>
       <div>
-        <p>I am Eric L</p>
+        <h2>Allo, I am Eric L</h2>
         <p>Sometimes I code</p>
         <p>Sometimes I draw</p>
         <p>Sometimes I write</p>
       </div>
+      <h3>Site Stats</h3>
       <div>
-        <div># blogs: {metaDataAgg.total_blogs}</div>
-        <div>total views: {metaDataAgg.total_views}</div>
-        <div>total likes: {metaDataAgg.total_likes}</div>
+        <pre># blogs: {metaDataAgg.total_blogs}</pre>
+        <pre>total views: {metaDataAgg.total_views}</pre>
+        <pre>total likes: {metaDataAgg.total_likes}</pre>
       </div>
+      <hr />
       <a href="https://github.com/RiceL123/blog">See repo on GitHub ></a>
       <div class="pl-4" style="font-size: 0.8em;">
         <div>
@@ -45,11 +45,17 @@ const metaDataAgg = res[0];
           <a href="https://mdxjs.com/">MDX</a>,
           <a href="https://docs.astro.build/en/guides/astro-db/">Astro DB</a> /
           <a href="https://orm.drizzle.team">Drizzle ORM</a> and
-          <a href="https://turso.tech/libsql">libSQL (hosted by Turso)</a>
+          <a href="https://turso.tech/libsql">libSQL</a>
         </div>
         <div>
-          <span class="font-bold">Deployed with:</span>
+          <span class="font-bold">Server hosted on:</span>
           <a href="https://vercel.com/">Vercel</a>
+        </div>
+        <div>
+          <span class="font-bold">Database hosted on:</span>
+          <a href="https://turso.tech/">Turso</a> and <a href="https://fly.io/"
+            >Fly.io</a
+          >
         </div>
       </div>
     </main>
