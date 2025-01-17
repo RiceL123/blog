@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -52,15 +53,15 @@ const posts = (await getCollection("blog")).sort(
         <ul class="mb-10">
           {
             posts.map((post) => (
-              <li class="group border-b">
+              <li class="group border-b py-2">
                 <a
                   style="font-size: smaller;"
-                  href={`/blog/${post.slug}/`}
+                  href={`/blog/${post.id}/`}
                   class="line-clamp-1 no-underline group-hover:underline mb-0"
                 >
                   {post.data.title}
                 </a>
-                <span class="text-xs mt-0">{post.data.pubDate}</span>
+                <FormattedDate date={post.data.pubDate} classStyle="text-sm" />
               </li>
             ))
           }

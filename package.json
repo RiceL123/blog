@@ -12,17 +12,18 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/db": "^0.14.5",
-    "@astrojs/mdx": "^3.1.9",
-    "@astrojs/rss": "^4.0.9",
+    "@astrojs/mdx": "^4.0.6",
+    "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.2",
-    "astro": "^4.16.15",
+    "@astrojs/tailwind": "^5.1.4",
+    "astro": "^5.1.7",
     "chart.js": "^4.4.4",
     "chartjs-plugin-deferred": "^2.0.0",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "daisyui": "^4.12.10"
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.10"
   }
 }
