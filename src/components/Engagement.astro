@@ -7,8 +7,9 @@ const res = await db
   .from(MetaData)
   .where(eq(MetaData.blog, blog))
   .limit(1);
-const viewCount = res[0].views;
-const likeCount = res[0].likes;
+
+const viewCount = !res ? 0 : res[0].views;
+const likeCount = !res ? 0 : res[0].likes;
 ---
 
 <div class="flex gap-2">
