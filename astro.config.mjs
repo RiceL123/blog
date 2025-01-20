@@ -10,6 +10,6 @@ import db from '@astrojs/db';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://example.com',
+    site: 'https://ricel123.vercel.app',
     integrations: [mdx(), sitemap(), tailwind(), db()],
 });
