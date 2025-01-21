@@ -1,8 +1,8 @@
 ---
 export const prerender = false;
-import { db, eq, MetaData } from "astro:db";
+import { db, eq, sql, MetaData } from "astro:db";
 
-const { blog } = Astro.props;
+const { blog, incrementViews = false } = Astro.props;
 const res = await db
   .select({ views: MetaData.views, likes: MetaData.likes })
   .from(MetaData)
@@ -11,6 +11,12 @@ const res = await db
 
 const viewCount = res[0].views;
 const likeCount = res[0].likes;
+
+// if (incrementViews) {
+//   db.update(MetaData)
+//     .set({ views: sql`${MetaData.views} + 1` })
+//     .where(eq(MetaData.blog, blog));
+// }
 ---
 
 <div class="flex gap-2">
@@ -44,7 +50,7 @@ const likeCount = res[0].likes;
 </div>
 
 <script>
-  import { actions } from  "astro:actions";
+  import { actions } from "astro:actions";
 
   const blog_id = /blog\/([^#\/]+)/.exec(window.location.pathname);
   if (blog_id && blog_id[1]) {

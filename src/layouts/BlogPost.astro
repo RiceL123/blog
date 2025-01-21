@@ -84,7 +84,7 @@ const { id } = Astro.params;
             <h1 style="margin-bottom: 5px;">{title}</h1>
             <div class="flex items-center justify-center mb-4 gap-4">
               <FormattedDate date={pubDate} />
-              <Engagement blog={id} />
+              <Engagement blog={id} incrementViews={true} server:defer />
             </div>
             <hr />
           </div>
