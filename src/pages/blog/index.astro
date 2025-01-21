@@ -54,7 +54,7 @@ const posts = (await getCollection("blog")).sort(
                     date={post.data.pubDate}
                     classStyles="text-[0.9em]"
                   />
-                  <Engagement blog={post.id} />
+                  <Engagement blog={post.id} server:defer />
                 </div>
               </a>
             </li>
