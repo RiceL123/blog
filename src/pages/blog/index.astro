@@ -25,7 +25,9 @@ const posts = (await getCollection("blog")).sort(
           posts.map((post, index) => (
             <li
               class={`${
-                index === 0 ? "w-full mb-4 text-center" : "w-[calc(50%-1rem)]"
+                index === 0
+                  ? "w-full mb-4 text-center"
+                  : "md:w-[calc(50%-1rem)]"
               }`}
             >
               <a href={`/blog/${post.id}/`} class="group">

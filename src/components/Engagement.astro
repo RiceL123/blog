@@ -10,8 +10,8 @@ const res = await db
   .where(eq(MetaData.blog, blog))
   .limit(1);
 
-const viewCount = res[0].views;
-const likeCount = res[0].likes;
+const viewCount = (res && res[0]) ? res[0].views : 0;
+const likeCount = (res && res[0]) ? res[0].likes : 0;
 
 Astro.callAction(actions.incrementViews, { blog }).catch((e) => console.log(e));
 ---

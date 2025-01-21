@@ -32,7 +32,7 @@ const { id } = Astro.params;
           {
             heroImage && (
               <img
-                class="mx-auto border-r-4"
+                class="mx-auto"
                 width={"100%"}
                 height={300}
                 src={heroImage}
@@ -42,7 +42,7 @@ const { id } = Astro.params;
             )
           }
         </div>
-        <div class="w-[960px] m-auto">
+        <div class="w-[960px] max-w-full m-auto">
           <div class="text-center py-2">
             <h1 class="mb-4">{title}</h1>
             <div class="flex items-center justify-center mb-4 gap-4">

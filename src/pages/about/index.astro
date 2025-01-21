@@ -1,18 +1,9 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { db, sql, sum, count, MetaData } from "astro:db";
-
-const res = await db
-  .select({
-    total_blogs: count(MetaData.blog),
-    total_views: sum(MetaData.views),
-    total_likes: sum(MetaData.likes),
-  })
-  .from(MetaData);
-const metaDataAgg = res[0];
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Aggregates from "./Aggregates.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 ---
 
 <!doctype html>
@@ -30,11 +21,13 @@ const metaDataAgg = res[0];
         <p>Sometimes I write</p>
       </div>
       <h3>Site Stats</h3>
-      <div>
-        <pre># blogs: {metaDataAgg.total_blogs}</pre>
-        <pre>total views: {metaDataAgg.total_views}</pre>
-        <pre>total likes: {metaDataAgg.total_likes}</pre>
-      </div>
+      <Aggregates server:defer>
+        <div>
+          <pre># blogs: 0</pre>
+          <pre>total views: 0</pre>
+          <pre>total likes: 0</pre>
+        </div>
+      </Aggregates>
       <hr />
       <a href="https://github.com/RiceL123/blog">See repo on GitHub ></a>
       <div class="pl-4" style="font-size: 0.8em;">
