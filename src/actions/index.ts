@@ -16,4 +16,18 @@ export const server = {
       return updatedLikes;
     },
   }),
+
+  incrementViews: defineAction({
+    input: z.object({
+      blog: z.string(),
+    }),
+    handler: async (input) => {
+      const updatedViews = await db
+        .update(MetaData)
+        .set({ views: sql`${MetaData.views} + 1` })
+        .where(eq(MetaData.blog, input.blog))
+        .returning();
+      return updatedViews;
+    },
+  }),
 };

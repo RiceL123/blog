@@ -1,7 +1,6 @@
 ---
 export const prerender = false;
-import { actions } from "astro:actions";
-import { db, eq, sql, MetaData } from "astro:db";
+import { db, eq, MetaData } from "astro:db";
 
 const { blog } = Astro.props;
 const res = await db
@@ -12,8 +11,6 @@ const res = await db
 
 const viewCount = res[0].views;
 const likeCount = res[0].likes;
-
-Astro.callAction(actions.incrementViews, { blog }).catch((e) => console.log(e));
 ---
 
 <div class="flex gap-2">
@@ -45,21 +42,3 @@ Astro.callAction(actions.incrementViews, { blog }).catch((e) => console.log(e));
     </div>
   </button>
 </div>
-
-<script>
-  import { actions } from "astro:actions";
-
-  const blog_id = /blog\/([^#\/]+)/.exec(window.location.pathname);
-  if (blog_id && blog_id[1]) {
-    const blog = blog_id[1].toString();
-    const likeBtn = document.querySelector("#like-button");
-    const likeCount = document.querySelector("#like-count");
-    likeBtn?.addEventListener("click", () => {
-      actions.incrementLikes({ blog }).then(({ data, error }) => {
-        if (!error && likeCount) {
-          likeCount.innerHTML = data[0].likes.toString();
-        }
-      });
-    });
-  }
-</script>
