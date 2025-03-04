@@ -2,14 +2,31 @@
 export const prerender = false;
 import { db, sql, sum, count, MetaData } from "astro:db";
 
-const res = await db
-  .select({
-    total_blogs: count(MetaData.blog),
-    total_views: sum(MetaData.views),
-    total_likes: sum(MetaData.likes),
-  })
-  .from(MetaData);
-const metaDataAgg = res[0];
+let metaDataAgg = {
+  total_blogs: 0,
+  total_views: 0,
+  total_likes: 0,
+};
+
+try {
+  const res = await db
+    .select({
+      total_blogs: count(MetaData.blog),
+      total_views: sum(MetaData.views),
+      total_likes: sum(MetaData.likes),
+    })
+    .from(MetaData);
+
+  if (res[0]) {
+    metaDataAgg = {
+      total_blogs: res[0].total_blogs,
+      total_views: Number(res[0].total_views) || 0,
+      total_likes: Number(res[0].total_likes) || 0,
+    };
+  }
+} catch (e) {
+  console.log(e);
+}
 ---
 
 <div>

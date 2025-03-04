@@ -1,0 +1,82 @@
+<canvas id="motivationChart"></canvas>
+<script>
+  import {
+    Chart,
+    LineController,
+    LineElement,
+    PointElement,
+    CategoryScale,
+    LinearScale,
+    Legend
+  } from "chart.js";
+
+  Chart.register(
+    LineController,
+    LineElement,
+    PointElement,
+    CategoryScale,
+    LinearScale,
+    Legend
+  );
+
+  const motivationToDraw = [
+    0, 2, 1, 5, 2, 1, 3, 3, 1, 2, 4, 7, 15, 30, 10, 2, 4, 3, 1, 1, 0, 2, 5, 1,
+    4, 3, 13, 21, 33, 23, 6, 2, 1, 4, 3, 4, 1, 2,
+  ];
+
+  const assignmentDeadline = [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0,
+  ];
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const chartElement = document.getElementById(
+      "motivationChart",
+    ) as HTMLCanvasElement;
+    if (!chartElement) {
+      return;
+    }
+    const ctx = chartElement.getContext("2d");
+    if (!ctx) {
+      return;
+    }
+
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [...Array(motivationToDraw.length).keys()],
+        datasets: [
+          {
+            label: "Motivation to Draw",
+            data: motivationToDraw,
+            borderColor: "green",
+            pointRadius: 0,
+          },
+          {
+            label: "Assignment Due",
+            data: assignmentDeadline,
+            borderColor: "red",
+            pointRadius: 0,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            title: {
+              text: "Motivation to Draw",
+              display: true,
+            },
+          },
+          x: {
+            display: false,
+          },
+        },
+        plugins: {
+          legend: { display: true }
+        }
+      },
+    });
+  });
+</script>

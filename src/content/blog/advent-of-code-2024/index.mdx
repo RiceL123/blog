@@ -1,28 +1,32 @@
 ---
-title: 'Advent of Code 2024'
-description: 'Christmas Coding 🎅🎄'
-pubDate: '25 Dec 2024'
-heroImage: '/aoc24.jpg'
+title: "Advent of Code 2024"
+description: "Christmas Coding 🎅🎄"
+pubDate: "25 Dec 2024"
+heroImage: "/aoc24.jpg"
 ---
-import { Image } from 'astro:assets';
-import aoc24_languages from '../../data/aoc24_languages';
-import StarRating from './StarRating.astro';
-import Solution from './Solution.astro';
+
+import { Image } from "astro:assets";
+import aoc24_languages from "../../data/aoc24_languages";
+import StarRating from "./StarRating.astro";
+import Solution from "./Solution.astro";
 
 ## The challenge
+
 [Advent of Code](https://adventofcode.com/) is a 25 day challenge of language agnostic problems for the month of December in the lead up to Christmas. Being language agnostic, the problems can be solved by any means necessary including by hand, on LibreOffice Calc, with Scratch or with a programming language.
 
 I decided that for 2024, I would try and have a crack trying a different language for each day:
 
-import Languages from './Languages.astro';
+import Languages from "./Languages.astro";
 
 <Languages />
 
 You can find all of my solutions in my [GitHub repo](https://github.com/RiceL123/advent-of-code).
+
 ## Visualizing language usage
+
 [GitHub](https://github.com) will automatically generate the language distribution in a repository according to [linguist](https://github.com/github-linguist/linguist/) to generate a HTML span like the one below.
 
-import GitHubLangs from './GitHubLangs.astro'
+import GitHubLangs from "./GitHubLangs.astro";
 
 <GitHubLangs />
 
@@ -35,46 +39,62 @@ So, my next idea was to redraw an image that the README.md file would reference 
 This script was a perfectly acceptable however, the arbitrary ordering of the [globing](https://docs.python.org/3/library/glob.html) and thus language distribution did get on my nerves so much so that I had to cave into some scope creep; I decided also to sort the languages based on **colour**.
 
 #### Sorting the Languages by Colour
+
 Initially I tried to sort the colours by their [hue](https://wikipedia.org/wiki/Hue#Defining%20hue%20in%20terms%20of%20RGB)
+
 ```js
-let hue = Math.atan2(Math.sqrt(3) * (G - B), (2 * R - G - B))
+let hue = Math.atan2(Math.sqrt(3) * (G - B), 2 * R - G - B);
 ```
+
 ---
-import HueDraft from './HueDraft.astro'
+
+import HueDraft from "./HueDraft.astro";
 
 <HueDraft />
-This worked well except for colours that were [achromatic](https://wikipedia.org/wiki/Achromatic) (whereby `r == g == b`). The hue function would break down for these languages (Crystal and C) and so I needed another dimension for sorting.
+This worked well except for colours that were
+[achromatic](https://wikipedia.org/wiki/Achromatic) (whereby `r == g == b`). The
+hue function would break down for these languages (Crystal and C) and so I
+needed another dimension for sorting.
 
 Two methods were considered for this extra dimension, [luminance](https://wikipedia.org/wiki/Luminance) and [value / lightness](https://wikipedia.org/wiki/Lightness).
+
 ```js
-let luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B
-let value = Math.max(R, G, B)
+let luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+let value = Math.max(R, G, B);
 ```
 
-import HueLuminance from './HueLuminance.astro'
+import HueLuminance from "./HueLuminance.astro";
 
 <HueLuminance />
 
 Looking at the two outputs, the vibes for luminance were just better because as a human, [colour temperature](https://wikipedia.org/wiki/Color_temperature) is an important factor that value seems to not account for.
 
-import ColorScatter from './ColorScatter.astro'
+import ColorScatter from "./ColorScatter.astro";
 
 <ColorScatter />
 
 Though I now had 2 dimensions to sort the colours, the language distribution graph was only in 1. So, I decided that I would just find the grays and blacks and chuck them next to the colour of lowest luminance. This produced the final image:
 
-<Image alt="language distribution" width="630" height="630" src="https://raw.githubusercontent.com/RiceL123/advent-of-code/main/script/2024.svg" style="margin-inline: auto;"/>
+<Image
+  alt="language distribution"
+  width="630"
+  height="630"
+  src="https://raw.githubusercontent.com/RiceL123/advent-of-code/main/script/2024.svg"
+  style="margin-inline: auto;"
+/>
 
 If more robust colour sorting is wanted in the future, I think I would use both the hue and luminance in my calculation to get to a 2D plot and from there do some [dimensionality reduction](https://en.wikipedia.org/wiki/Dimensionality_reduction).
 
 The GitHub workflow script can be found [here](https://github.com/RiceL123/advent-of-code/blob/main/script/readme.py) in the same aoc repo. If you know of a way to hide the commits of the [github actions user](https://github.com/actions-user) please let me know!
 
 ## The Languages
-Most languages have their specific use cases where they flourish. I will be judging them based on *✨vibes✨* according to my experience solving the advent of code problems. 
+
+Most languages have their specific use cases where they flourish. I will be judging them based on _✨vibes✨_ according to my experience solving the advent of code problems.
 Some criteria that I would like met when using a programming language include:
+
 - Easy to read and write (should be close to english or common language patterns)
 - Good documentation with examples (I will try avoid tutorials and head straight to the docs)
-- Quick installation and setup (if I can't make it a simple [shebangable](https://wikipedia.org/wiki/Shebang_(Unix)) script at least make it a simple `cargo run` or equivalent)
+- Quick installation and setup (if I can't make it a simple [shebangable](<https://wikipedia.org/wiki/Shebang_(Unix)>) script at least make it a simple `cargo run` or equivalent)
 - Helpful error messages ([Code completion](https://wikipedia.org/wiki/Code_completion) is nice as well)
 - I don't want to be fighting the language or compiler, i want to be fighting the problem at hand
 - **Other requirements**: functional paradigm support, lambdas, destructuring, types or type hints
@@ -82,76 +102,122 @@ Some criteria that I would like met when using a programming language include:
 > Note: For most languages on this list I have little to no experience with so clearer opinions on them would require some more time marinating
 
 ### Day 01: [Haskell](https://haskell.org/)
-I took a course at uni on Haskell with a terrible professor as my first introduction to pure functional programming. Although assignments were released weeks after they should have been, I still found this new way of thinking and expanding my mind to be satisfying (though I still don't get what '*A monad is a monoid in the category of endofunctors*' means). Using the IO monad and the simplicity of day01's problem made this a pleasant experience. Additionally, resources like [Hoogle](https://hoogle.haskell.org/) were lovely to work with. Though I like functional programming, Haskell just feels a bit off beat and frankly, scary at times.
-<StarRating rating={aoc24_languages.Haskell.rating} icon={aoc24_languages.Haskell.icon} filename={aoc24_languages.Haskell.file}/>
-**TLDR**: Its cool paradigm but I don't why I would actively choose to use it in real world applications
+
+I took a course at uni on Haskell with a terrible professor as my first introduction to pure functional programming. Although assignments were released weeks after they should have been, I still found this new way of thinking and expanding my mind to be satisfying (though I still don't get what '_A monad is a monoid in the category of endofunctors_' means). Using the IO monad and the simplicity of day01's problem made this a pleasant experience. Additionally, resources like [Hoogle](https://hoogle.haskell.org/) were lovely to work with. Though I like functional programming, Haskell just feels a bit off beat and frankly, scary at times.
+
+<StarRating
+  rating={aoc24_languages.Haskell.rating}
+  icon={aoc24_languages.Haskell.icon}
+  filename={aoc24_languages.Haskell.file}
+/>
+**TLDR**: Its cool paradigm but I don't why I would actively choose to use it in
+real world applications
 <Solution file={aoc24_languages.Haskell.file} lang="haskell" />
 
 ### Day 02: [Lua](https://lua.org/)
+
 There was a lot of hype around Lua (means moon 🌕). All the youngins be using it for Roblox and I also see it in [neovim](https://neovim.io/), [obs](https://obsproject.com/) and other random places. It was very easy to setup and get the hang of with only [23 keywords](https://lua.org/manual/5.4/manual.html#3.1). The trouble with being so lightweight is the lack of niceties that come with languages that are more featureful meaning I had to manually implement some behaviour like a `table.copy`. I also don't know how I feel about the fact that arrays can be [indexed with any value](https://lua.org/pil/11.1.html) and so are not always 1 indexed.
-<StarRating rating={aoc24_languages.Lua.rating} icon={aoc24_languages.Lua.icon} />
+
+<StarRating
+  rating={aoc24_languages.Lua.rating}
+  icon={aoc24_languages.Lua.icon}
+/>
 **TLDR**: Nice and simple language
 <Solution file={aoc24_languages.Lua.file} lang="lua" />
 
 ### Day 03: [Bash](https://tiswww.case.edu/php/chet/bash/bashref.html)
+
 I use [Debian](https://debian.org/) which comes with bash pre-installed. I took a uni course that dipped my toes into bash scripts which I found awesome for simple tasks in the terminal and regexing my life away. I learnt the art of the '`|`' pipe operator and have fallen in love since. As such, I was able to do this day's problem in just **2 lines** of code after a bit of [regex101](https://regex101.com/).
+
 ```bash
 #!/bin/bash
 
 # part1
-cat day03.txt | grep -Eo 'mul\([[:digit:]]+,[[:digit:]]+\)' | sed -r 's/mul\((.+),(.+)\)/\1*\2/g' | xargs | sed -r 's/ /+/g' | bc 
+cat day03.txt | grep -Eo 'mul\([[:digit:]]+,[[:digit:]]+\)' | sed -r 's/mul\((.+),(.+)\)/\1*\2/g' | xargs | sed -r 's/ /+/g' | bc
 
 # part2
-echo $(cat day03.txt) | perl -pe "s/don\'t\(\).*?do\(\)|(don't\(\).*?$)//g" | grep -Eo 'mul\([[:digit:]]+,[[:digit:]]+\)' | sed -r 's/mul\((.+),(.+)\)/\1*\2/g' | xargs | sed -r 's/ /+/g' | bc 
+echo $(cat day03.txt) | perl -pe "s/don\'t\(\).*?do\(\)|(don't\(\).*?$)//g" | grep -Eo 'mul\([[:digit:]]+,[[:digit:]]+\)' | sed -r 's/mul\((.+),(.+)\)/\1*\2/g' | xargs | sed -r 's/ /+/g' | bc
 ```
+
 Additionally, just copying your code from the script straight into the terminal is a fun way to verify correctness.
-<StarRating rating={aoc24_languages.Bash.rating} icon={aoc24_languages.Bash.icon} />
-**TLDR**: Piping is lit. Everyone should know at least a little bit of bash or sh
+
+<StarRating
+  rating={aoc24_languages.Bash.rating}
+  icon={aoc24_languages.Bash.icon}
+/>
+**TLDR**: Piping is lit. Everyone should know at least a little bit of bash or
+sh
 
 [Open Solution on GitHub](https://github.com/RiceL123/advent-of-code/blob/main/2024/day03.sh)
 
 ### Day 04: [Go](https://go.dev/)
+
 Go felt like C but with some features to make life a little easier. My solution for this day's challenge mainly just worked with jumping around array indices and so I wasn't forced to lean into some more Go specific idiomatic syntax.
 
-Some things like the lack of an `All` or `Any` function just lead me to write it myself. 
+Some things like the lack of an `All` or `Any` function just lead me to write it myself.
+
 <StarRating rating={aoc24_languages.Go.rating} icon={aoc24_languages.Go.icon} />
 **TLDR**: Pretty decent language no fusses
 <Solution file={aoc24_languages.Go.file} lang="go" />
 
 ### Day 05: [C#](https://learn.microsoft.com/dotnet/csharp/)
+
 I've heard that C# is just a slightly better Java. To me it just seemed like the language you use for game development. The functional language features were easy to use and worked nicely for this day's problem making the experience pleasant. Maybe I'll make a game in [Godot](https://godotengine.org/) in the future using C#.
-<StarRating rating={aoc24_languages["C#"].rating} icon={aoc24_languages["C#"].icon} />
+
+<StarRating
+  rating={aoc24_languages["C#"].rating}
+  icon={aoc24_languages["C#"].icon}
+/>
 **TLDR**: Functional C# 👍
 <Solution file={aoc24_languages["C#"].file} lang="csharp" />
 
 ### Day 06: [C++](https://isocpp.org/)
+
 C++ initially seemed like a language to code in mainly to say 'I use c++ btw'. It includes some features that do make the experience feel better than C like destructuring, vectors and dictionaries. This day's problem may have been one of the slowest with the speed of checking for cycles in a graph however, the thread and atomic libraries were easy to work with.
 
 Similar to Go, there didn't seem to be anything I hated with the language.
-<StarRating rating={aoc24_languages["C++"].rating} icon={aoc24_languages["C++"].icon} />
+
+<StarRating
+  rating={aoc24_languages["C++"].rating}
+  icon={aoc24_languages["C++"].icon}
+/>
 **TLDR**: Decent language. Just C but plus plus as well
 <Solution file={aoc24_languages["C++"].file} lang="cpp" />
 
 ### Day 07: [Java](https://oracle.com/java/)
+
 Java was my first introduction to OOP in uni. Though the language was perfectly fine with the ability to use streams and a lot of nice features you can just import, for my uni course, the idea that SOLID principles had the final say and not performance or some objective measurement didn't sit with me right (I even showed my tutor how an assignment could be significantly 'optimised' just by switching from a [strategy pattern](https://wikipedia.org/wiki/Strategy_pattern) to enumeration with a switch statement). Overtime, I have come to the understanding that "code doesn't need to be refactored to perfection" as requirements constantly change anyways.
-<StarRating rating={aoc24_languages.Java.rating} icon={aoc24_languages.Java.icon} />
+
+<StarRating
+  rating={aoc24_languages.Java.rating}
+  icon={aoc24_languages.Java.icon}
+/>
 **TLDR**: Java is fine as long as I'm not stuck in design pattern hell
 <Solution file={aoc24_languages.Java.file} lang="java" />
 
 ### Day 08: [TypeScript](https://typescriptlang.org/)
+
 TypeScript / JavaScript are probably my most used languages. Because of my comfortability in them, I was able to just focus on the problem at hand and not try to learn the language at the same time. This made it a very lovely experience however, I am interested in trying [JSDoc](https://jsdoc.app/) as an alternative.
-<StarRating rating={aoc24_languages.TypeScript.rating} icon={aoc24_languages.TypeScript.icon} />
+
+<StarRating
+  rating={aoc24_languages.TypeScript.rating}
+  icon={aoc24_languages.TypeScript.icon}
+/>
 **TLDR**: TypeScript is just a linter
 <Solution file={aoc24_languages.TypeScript.file} lang="ts" />
 
 ### Day 09: [C](https://gnu.org/software/gnu-c-manual/)
+
 C is the first programming language I learnt in uni and you gotta respect how easy it is to mentally map the code to assembly instructions. Additionally, building my data structures and algorithms manually was helpful for getting a deeper understanding of how the computer was actually using them. Though I respect C in its position as the OG, I find that it can take away from solving the problem and force you into other tasks like making sure your program is memory safe.
+
 <StarRating rating={aoc24_languages.C.rating} icon={aoc24_languages.C.icon} />
 **TLDR**: pay your respects to C
 <Solution file={aoc24_languages.C.file} lang="c" />
 
 ### Day 10: [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript)
+
 Solving this days' problem in the airport was lovely. JavaScript is one my favourite languages as someone that dabbles in web development. When first learning about lambdas in python, I was so confused, but, using arrow functions in js felt way more intuitive. JavaScript's implementation of the functional paradigm might just be my favourite with optional indexing and dot notation. Though it doesn't have a sum function, it is really easy to extend `Array.prototype`,
+
 ```js
 Array.prototype.sum = function () {
   return this.reduce((acc, x) => acc + x, 0);
@@ -159,28 +225,44 @@ Array.prototype.sum = function () {
 ```
 
 I know that JavaScript can get real weird at times but if you want to connect to the world, I feel like it is the best language to learn.
-<StarRating rating={aoc24_languages.JavaScript.rating} icon={aoc24_languages.JavaScript.icon} />
+
+<StarRating
+  rating={aoc24_languages.JavaScript.rating}
+  icon={aoc24_languages.JavaScript.icon}
+/>
 **TLDR**: I like JavaScript
 <Solution file={aoc24_languages.JavaScript.file} lang="js" />
 
 ### Day 11: [Scala](https://scala-lang.org)
+
 I initially wrote this day's problem in python and then translated it to scala. This process was pretty easy considering the simplistic nature of today's problem coupled with Scala's delightful language features like functional support and its built-in map data structure. Scala let me focus on the problem at hand basically as well as python did.
-<StarRating rating={aoc24_languages.Scala.rating} icon={aoc24_languages.Scala.icon} />
+
+<StarRating
+  rating={aoc24_languages.Scala.rating}
+  icon={aoc24_languages.Scala.icon}
+/>
 **TLDR**: Pretty nice to code in
 <Solution file={aoc24_languages.Scala.file} lang="scala" />
 
 ### Day 12: [Rust](https://rust-lang.org/)
+
 Rust my beloved. One of my favourite uni electives is the rust course and I tried some of Advent of Code 2023 purely in rust. The support around the language like the documentation, compiler error messages, cargo package manager, rust analyzer and the beautiful rust book make the entire experience feel so seamless. Plus the language itself with the functional paradigm support, type inference, pattern matching; absolutely splendid.
 
 Realizing that the number of corners in a polygon is always equal to the number of sides was an elating revelation that, coupled with the beautiful language, made this a very fun day.
 
 Though sometimes it can be a pain to fight the compiler when all you wanna do is focus on the problem at hand, overall: one of the best language experiences.
-<StarRating rating={aoc24_languages.Rust.rating} icon={aoc24_languages.Rust.icon} />
+
+<StarRating
+  rating={aoc24_languages.Rust.rating}
+  icon={aoc24_languages.Rust.icon}
+/>
 **TLDR**: 1v1 the compiler and fall in love
 <Solution file={aoc24_languages.Rust.file} lang="rust" />
 
 ### Day 13: [Ruby](https://ruby-lang.org/)
+
 There was something charming about ruby's syntax and how productive I could be like with python. Additionally, when using `matrix` to solve the system of linear equations, ruby stored the numbers as fractions. This meant I could easily check if the solution produced whole numbers as required by the problem.
+
 ```ruby
 #!/usr/bin/env ruby
 require 'matrix'
@@ -191,6 +273,7 @@ a_presses, b_presses = (coefficients.inverse * results).to_a.flatten
 ```
 
 On the other hand if I used a language like python, it would produce floating point errors forcing me to account for some epsilon.
+
 ```python
 #!/usr/bin/env python3
 import numpy as np
@@ -199,99 +282,166 @@ a_presses, b_presses = np.linalg.inv(coefficients).dot(results).flatten()
 # a_presses: -13.000000000000028
 # b_resses: 12.000000000000021
 ```
-<StarRating rating={aoc24_languages.Ruby.rating} icon={aoc24_languages.Ruby.icon} />
+
+<StarRating
+  rating={aoc24_languages.Ruby.rating}
+  icon={aoc24_languages.Ruby.icon}
+/>
 **TLDR**: Ruby is lovely to code in
 <Solution file={aoc24_languages.Ruby.file} lang="ruby" />
 
 ### Day 14: [Zig](https://ziglang.org/)
+
 I was excited to try Zig hearing the hype around it. Although IntelliSense wasn't working on vscode, all was good because [Zed](https://zed.dev/) seemed to work with the click of a button.
 
 I found the syntax to be the steepest learning curve of all the languages here. Reading the docs was frequently unhelpful and along with the language being too verbose for my liking, it was only natural I was put into a bad mood. Though this day's problem was hilarious in that it was like 'just find the christmas tree bro', I had to sleep on it for a day. When my second day of Zig came around, I noticed a shift in my mood; I was actually enjoying the language as I came to grasps with the syntax.
-<StarRating rating={aoc24_languages.Zig.rating} icon={aoc24_languages.Zig.icon} />
+
+<StarRating
+  rating={aoc24_languages.Zig.rating}
+  icon={aoc24_languages.Zig.icon}
+/>
 **TLDR**: Make better docs and I'd like it a lot
 <Solution file={aoc24_languages.Zig.file} lang="zig" />
 
 ### Day 15: [Python](https://python.org/)
+
 While Zig had me demotivated for a day, I thought that I would fall back to a nice cushy language; Python. The [Zen of Python](https://wikipedia.org/wiki/Zen_of_Python) is a great philosophy in language design making both writing and reading python a blissful experience. While it does have lovely list comprehensions, if the functional support used dot notation instead of normal functions, the language might have been goated.
-<StarRating rating={aoc24_languages.Python.rating} icon={aoc24_languages.Python.icon} />
+
+<StarRating
+  rating={aoc24_languages.Python.rating}
+  icon={aoc24_languages.Python.icon}
+/>
 **TLDR**: Python awesome for productivity but brackets >> indents
 <Solution file={aoc24_languages.Python.file} lang="python" />
 
 ### Day 16: [Kotlin](https://kotlinlang.org)
+
 Setting up Kotlin was the most painful experience out of the ones listed here. I had to go out of my way to find the binaries and avoid the website pushing the IntelliJ IDE onto my broke ass. I also installed the native linux binary instead of the JVM one which was annoying to realise.
 
 Though the installation sucked, actually writing code in it was quite nice with the Kotlin docs and the ability to use the Java libraries even though vscode had no IntelliSense. Though the compilation times were comically slow, the syntax was nice.
-<StarRating rating={aoc24_languages.Kotlin.rating} icon={aoc24_languages.Kotlin.icon} />
+
+<StarRating
+  rating={aoc24_languages.Kotlin.rating}
+  icon={aoc24_languages.Kotlin.icon}
+/>
 **TLDR**: Worst language in terms of setup. Would only use if I had IntelliJ
 <Solution file={aoc24_languages.Kotlin.file} lang="kotlin" />
 
 ### Day 17: [Dart](https://dart.dev)
-For some reason Dart's installation using apt-get requires 4 steps. Being 3 steps too many, I just downloaded the  binaries only to find that analytics was opt-out. Why is this open source language trying to steal my data? Typical Google I guess.
+
+For some reason Dart's installation using apt-get requires 4 steps. Being 3 steps too many, I just downloaded the binaries only to find that analytics was opt-out. Why is this open source language trying to steal my data? Typical Google I guess.
 
 Overall, the language was pretty nice with things like being shebangable and having destructuring despite this day's problem being very difficult.
-<StarRating rating={aoc24_languages.Dart.rating} icon={aoc24_languages.Dart.icon} />
+
+<StarRating
+  rating={aoc24_languages.Dart.rating}
+  icon={aoc24_languages.Dart.icon}
+/>
 **TLDR**: Pretty enjoyable language no complaints
 <Solution file={aoc24_languages.Dart.file} lang="dart" />
 
 ### Day 18: [Elixir](https://elixir-lang.org)
+
 Elixir was easy to set up and came with [iex](https://hexdocs.pm/iex/IEx.html) which was lovely to work with. Being shebangable, having readable syntax that supports piping with `|>`, great documentation and being functional made this a transcendent experience; the best new language I learnt in this list.
 
 For this days solution, I wanted use bfs and instead of doing it with normal pattern matching recursively, I tried to do it using [Stream.unfold/2](https://hexdocs.pm/elixir/Stream.html#unfold/2) which worked with great success after playing around with in iex.
-<StarRating rating={aoc24_languages.Elixir.rating} icon={aoc24_languages.Elixir.icon} />
+
+<StarRating
+  rating={aoc24_languages.Elixir.rating}
+  icon={aoc24_languages.Elixir.icon}
+/>
 **TLDR**: Elixir was very joyful to code in. I wanna use it more in future
 <Solution file={aoc24_languages.Elixir.file} lang="elixir" />
 
 ### Day 19: [Squirrel](http://squirrel-lang.org/)
-Squirrel was definitely the most obscure language of this list not even having [shiki](https://shiki.style/) syntax highlighting or [seti icon](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) support. It has found some adoption for scripting in games like Portal 2 but the way I found out about it was just hearing a random person mention it in a discord I was lurking in. 
+
+Squirrel was definitely the most obscure language of this list not even having [shiki](https://shiki.style/) syntax highlighting or [seti icon](https://github.com/microsoft/vscode/tree/main/extensions/theme-seti) support. It has found some adoption for scripting in games like Portal 2 but the way I found out about it was just hearing a random person mention it in a discord I was lurking in.
 
 Actually setting up the language and coding in it was quite nice being dynamic like lua and the documentation was surprisingly good despite not hearing anybody ever talking about this language.
-<StarRating rating={aoc24_languages.Squirrel.rating} icon={aoc24_languages.Squirrel.icon} />
-**TLDR**: `.nut` is funny suffix. Good language but too mysterious and nonchalant for me
+
+<StarRating
+  rating={aoc24_languages.Squirrel.rating}
+  icon={aoc24_languages.Squirrel.icon}
+/>
+**TLDR**: `.nut` is funny suffix. Good language but too mysterious and
+nonchalant for me
 <Solution file={aoc24_languages.Squirrel.file} lang="lua" />
 
 ### Day 20: [Nim](https://nim-lang.org/)
+
 Nim felt just like Python but better. It felt like it gave the same amount of productivity while also being statically typed and compiled for some free performance benefits. Nothing much to say other than it was a pleasant experience. Despite this, I'm not too sure I'm going to be in a position where I need to solve a problem / build a product and will choose Nim. I guess if I want some performant code that is also easy to write, it would have to be a toss up between this and Crystal.
-<StarRating rating={aoc24_languages.Nim.rating} icon={aoc24_languages.Nim.icon} />
+
+<StarRating
+  rating={aoc24_languages.Nim.rating}
+  icon={aoc24_languages.Nim.icon}
+/>
 **TLDR**: Nim is just better Python
 <Solution file={aoc24_languages.Nim.file} lang="nim" />
 
 ### Day 21: [Crystal](https://crystal-lang.org/)
+
 Crystal to Ruby feels very much like Nim to Python; a statically typed more performant alternative that is joyful to code in. She has good documentation, functional features and the niceties of ruby like implicit returns and stuff. I really enjoyed using it.
-<StarRating rating={aoc24_languages.Crystal.rating} icon={aoc24_languages.Crystal.icon} />
+
+<StarRating
+  rating={aoc24_languages.Crystal.rating}
+  icon={aoc24_languages.Crystal.icon}
+/>
 **TLDR**: Crystal is just better Ruby
 <Solution file={aoc24_languages.Crystal.file} lang="crystal" />
 
 ### Day 22: [Gleam](https://gleam.run/)
+
 Gleam, like Elixir, is an [Erlang](https://erlang.org/) based language that has the lovely `|>` pipe operator and great documentation. I didn't read up anything about the language but just liked the colour and icon only to realise it was functional later when solving the problem which was pretty funny. I didn't like how there was no standard file system to read the input forcing me to import [simplifile](https://hexdocs.pm/simplifile/). Also, it forces you to handle all the errors which was kinda annoying when I would prefer to just crash if certain functions errored. Though I can understand why this is important for building more robust software, it just made it feel like a less enjoyable elixir substitute.
-<StarRating rating={aoc24_languages.Gleam.rating} icon={aoc24_languages.Gleam.icon} />
+
+<StarRating
+  rating={aoc24_languages.Gleam.rating}
+  icon={aoc24_languages.Gleam.icon}
+/>
 **TLDR**: Gleam is less joyful Elixir
 <Solution file={aoc24_languages.Gleam.file} lang="gleam" />
 
 ### Day 23: [Raku](https://raku.org/)
+
 Apparently Raku was meant to be Perl 6. I have zero knowledge of [Perl](https://perl.org/) (apart from the one time I used it instead of sed because it supported lazy quantifiers in [Day03](#day-03-bash) within a pipe). Raku was easy to install and the documentation was decent with the added bonus of weeb [anime references](https://docs.raku.org/language/hashmap#Constraint_value_types).
 
 There are a ton of [operators](https://docs.raku.org/language/operators) to learn and some of them aren't even ascii. I mean just look at this cursed condition using with `&&` and `and`, `!(cont)` and `∌`, and `>>.&` which is a hyper method call operator with a metaoperator to invoke the lambda subroutine. What!?
+
 ```raku
-my $condition = $visited !(cont) $neighbour && 
-  @curr_arr ∌ $neighbour and 
+my $condition = $visited !(cont) $neighbour &&
+  @curr_arr ∌ $neighbour and
   all @curr_arr>>.&{ %graph{$_} (cont) $neighbour };
 ```
-In the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python), you'll see that one of their philosophies is "*There should be one-- and preferably only one --obvious way to do it.*" On the contrary following [Perl's philosophy](https://en.wikipedia.org/wiki/Perl#Philosophy) of "*There's more than one way to do it*"(TMTOWTDI) made writing Raku fun but the initial understanding and reading of it quite agonising.
-<StarRating rating={aoc24_languages.Raku.rating} icon={aoc24_languages.Raku.icon} />
+
+In the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python), you'll see that one of their philosophies is "_There should be one-- and preferably only one --obvious way to do it._" On the contrary following [Perl's philosophy](https://en.wikipedia.org/wiki/Perl#Philosophy) of "_There's more than one way to do it_"(TMTOWTDI) made writing Raku fun but the initial understanding and reading of it quite agonising.
+
+<StarRating
+  rating={aoc24_languages.Raku.rating}
+  icon={aoc24_languages.Raku.icon}
+/>
 **TLDR**: Raku pretty cool but too strays too far from English
 <Solution file={aoc24_languages.Raku.file} lang="raku" />
 
 ### Day 24: [Odin](https://odin-lang.org/)
+
 Odin feels very much like Go syntactically but with manual memory management. The documentation is decent but definitely could be better due to the limited examples. Additionally, [Odin has non-capturing lambda produres](https://odin-lang.org/docs/faq/#does-odin-have-closures) so some weird solutions using the context had to be implemented to work around this.
-<StarRating rating={aoc24_languages.Odin.rating} icon={aoc24_languages.Odin.icon} />
+
+<StarRating
+  rating={aoc24_languages.Odin.rating}
+  icon={aoc24_languages.Odin.icon}
+/>
 **TLDR**: Odin is more painful Go
 <Solution file={aoc24_languages.Odin.file} lang="go" />
 
 ### Day 25: [Mojo](https://modular.com/mojo)
+
 Initially, I wrote a lovely solution with list comprehensions to the problem in python thinking I would be able to change the suffix of the file to conclude the challenge. Turns out that Mojo doesn't support list comprehensions well, `zip` or `filter` functions, sets don't work with strings, `String.replace` just doesn't work and you have to dereference pointers with a `[]` suffix. Why does Mojo make the promise of 'easy transition from Python' when it is quite the opposite. I would much rather translate python to any other language on this list.
 
 The language experience combined with the generative ai art slop on its website and the bootleg MDN logo allows me to confidently say it is the worst language I've ever used and will never use it again even after a 1.0 release.
-<StarRating rating={aoc24_languages.Mojo.rating} icon={aoc24_languages.Mojo.icon} />
+
+<StarRating
+  rating={aoc24_languages.Mojo.rating}
+  icon={aoc24_languages.Mojo.icon}
+/>
 **TLDR**: Mojo is the worst language I've ever used
 <Solution file={aoc24_languages.Mojo.file} lang="mojo" />
 
@@ -304,16 +454,16 @@ Lets rank these languages based on nothing but vibes
 - 7-8: good language that I like and would reach for if appropriate
 - 9-10: I love these languages and will definitely be trying to them use in future
 
-import Ranking from './Ranking.astro'
+import Ranking from "./Ranking.astro";
 
 <Ranking />
 
 The take away from all of this in regards to languages is that most of them are good enough if they have just existed for long enough to have good documentation and a solid ecosystem (more popular ~= better).
 
-import LangTree from './LangTree.astro'
+import LangTree from "./LangTree.astro";
 
 <LangTree />
 
-Not sure if I would encourage this kind of challenge because as they say, "*A Jack of all trades is a master of none*" but, personally, I'm happy that I completed it.
+Not sure if I would encourage this kind of challenge because as they say, "_A Jack of all trades is a master of none_" but, personally, I'm happy that I completed it.
 
 Anyways ggs and Merry Christmas everyone ~!

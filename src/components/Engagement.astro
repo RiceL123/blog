@@ -4,16 +4,22 @@ import { actions } from "astro:actions";
 import { db, eq, sql, MetaData } from "astro:db";
 
 const { blog } = Astro.props;
-const res = await db
-  .select({ views: MetaData.views, likes: MetaData.likes })
-  .from(MetaData)
-  .where(eq(MetaData.blog, blog))
-  .limit(1);
 
-const viewCount = (res && res[0]) ? res[0].views : 0;
-const likeCount = (res && res[0]) ? res[0].likes : 0;
-
-Astro.callAction(actions.incrementViews, { blog }).catch((e) => console.log(e));
+let res;
+try {
+  res = await db
+    .select({ views: MetaData.views, likes: MetaData.likes })
+    .from(MetaData)
+    .where(eq(MetaData.blog, blog))
+    .limit(1);
+  Astro.callAction(actions.incrementViews, { blog }).catch((e) =>
+    console.log(e),
+  );
+} catch (e) {
+  console.log(e);
+}
+const viewCount = res && res[0] ? res[0].views : 0;
+const likeCount = res && res[0] ? res[0].likes : 0;
 ---
 
 <div class="flex gap-2">
