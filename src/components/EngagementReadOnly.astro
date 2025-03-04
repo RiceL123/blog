@@ -3,14 +3,22 @@ export const prerender = false;
 import { db, eq, MetaData } from "astro:db";
 
 const { blog } = Astro.props;
-const res = await db
-  .select({ views: MetaData.views, likes: MetaData.likes })
-  .from(MetaData)
-  .where(eq(MetaData.blog, blog))
-  .limit(1);
 
-const viewCount = res[0].views;
-const likeCount = res[0].likes;
+let viewCount = 0;
+let likeCount = 0;
+
+try {
+  const res = await db
+    .select({ views: MetaData.views, likes: MetaData.likes })
+    .from(MetaData)
+    .where(eq(MetaData.blog, blog))
+    .limit(1);
+
+  viewCount = res[0].views;
+  likeCount = res[0].likes;
+} catch (e) {
+  console.log(e);
+}
 ---
 
 <div class="flex gap-2">

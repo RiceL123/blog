@@ -1,17 +1,24 @@
 ---
 const { lang, file } = Astro.props;
 import { Code } from "astro:components";
-const solutionResponse = await fetch(
-  `https://raw.githubusercontent.com/RiceL123/advent-of-code/refs/heads/main/2024/${file}`
-);
 
-if (!solutionResponse.ok) {
-  throw new Error(
-    `Failed to fetch the solution: ${solutionResponse.statusText}`
+let solution = "solution not loaded";
+
+try {
+  const solutionResponse = await fetch(
+    `https://raw.githubusercontent.com/RiceL123/advent-of-code/refs/heads/main/2024/${file}`,
   );
-}
 
-const solution = await solutionResponse.text();
+  if (!solutionResponse.ok) {
+    throw new Error(
+      `Failed to fetch the solution: ${solutionResponse.statusText}`,
+    );
+  }
+
+  solution = await solutionResponse.text();
+} catch (e) {
+  console.log(e);
+}
 ---
 
 <details>

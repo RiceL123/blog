@@ -1,28 +1,33 @@
 ---
-title: 'A Meta-analysis On Reducing Screen Time'
-description: 'It is that damn phone!'
-pubDate: '07 Dec 2024'
-heroImage: '/coding.jpg'
+title: "A Meta-analysis On Reducing Screen Time"
+description: "It is that damn phone!"
+pubDate: "07 Dec 2024"
+heroImage: "/coding.jpg"
 ---
-import { Image } from 'astro:assets';
-import normal from './normal.jpg';
-import greyscale from './greyscale.jpg';
-import inverted from './inverted.jpg';
-import stacked from './inverted&greyscale.jpg';
+
+import { Image } from "astro:assets";
+import normal from "./normal.jpg";
+import greyscale from "./greyscale.jpg";
+import inverted from "./inverted.jpg";
+import stacked from "./inverted&greyscale.jpg";
 
 ## Intro
+
 My phone screen time is abysmal. Seeing it reach heavenly heights sitting above 4 hours each day produces visceral feelings of disgust. Doing some calculations, we find that
+
 ```
 (4 hours/day) * (365 day/year)
 = 1460 hours / year
 = 14600 hours / decade
 
-(4 hours/day) / (24 hours/day - 8 hours/day for sleep) 
+(4 hours/day) / (24 hours/day - 8 hours/day for sleep)
 = 1/4 of all the waking hours of your life
 ```
+
 The opportunity cost of all this time spent on these small screens is cataclysmic with the awareness that the majority of these hours consists of doom scrolling on TikTok or Instagram Reels. Fluency in a foreign language, mastery over a new instrument or any other noble endeavour could have been worked towards and yet the allure of instant gratification prevents me from working towards being my best self. Back in high school, there were weeks where I wouldn't bring my phone to school; I felt superior to all my foolish mates who seemingly couldn't live without their phone on hand. I have since fallen to become the very person I used to despise, flummoxed by trivial matters like not bringing my phone to the toilet.
 
 > "Your worst sin is that you have destroyed and betrayed yourself for nothing" -
+>
 > <cite>Dostoyevsky[^1]</cite>
 
 Interestingly, what we find is that the people on these platforms are self-aware of their destructive behaviours. There are [satirical videos](https://www.instagram.com/reel/DC9wD-2viT-) and [memes](https://www.instagram.com/p/C_6d147tozj) floating around that receive [viral engagement](https://www.tiktok.com/@jaykaizen/video/7339923816333823265) due to the relatability of this experience.
@@ -30,7 +35,8 @@ Interestingly, what we find is that the people on these platforms are self-aware
 Inherently, I know that I wasn't destined to doom scroll for hours on end and I yet continue on in the way of folly. So, how can I amend this disconnect between what I desire and how I behave?
 
 ## The Plan
-In the best case scenario, pure mental fortitude would set my mind above the desires of the flesh and effectively crucify any meaningless screen time. However, as my mind is weak, I must reach for external motivators in order to walk in the light. 
+
+In the best case scenario, pure mental fortitude would set my mind above the desires of the flesh and effectively crucify any meaningless screen time. However, as my mind is weak, I must reach for external motivators in order to walk in the light.
 
 The next best solution is then to throw my phone in the sea[^2] however, phone calls, 2FA and the such are essential to daily function. So, empirical research on different methods in reducing aimless screen time was undertaken in order to work towards a reasonable solution.
 
@@ -43,32 +49,44 @@ The next best solution is then to throw my phone in the sea[^2] however, phone c
 <a href="https://youtu.be/NocXEwsJGOQ">‎ </a>
 
 ### Moving the phone charger
+
 One of the biggest facilitators to this mind consuming habit is a non-zero phone battery charge. With my charger right next to my bed, I would endless scroll till my eventual slumber as my phone would charge for the next day. Even one of my mates (Kevin) decided to purchase a 3 metre charging cable to put next to his bed in an act of pure hedonism.
 
 Seeing as a full phone charge was necessary for the next day and having the phone so close to where I slept was detrimental, I decided to experiment with different placements of the phone charger as shown below.
 
-import ChartCharger from './ChartCharger.astro'
+import ChartCharger from "./ChartCharger.astro";
 
 <ChartCharger />
 
 It was found that there was a negative correlation between the charger's distance to the bed and the amount of screen time. Once the charging location had reached the critical distance of being outside of the bedroom, any additional distance would provide marginal benefit.
 
-Overall, this experiment does seem to indicate the validity of moving the charging port away from the bed. Furthermore, other benefits like better sleeping habits were also experienced. However, I was able to conjure some excuses like *"I need my phone as an alarm"* and *"it'd be weird to use the common area to charge my phone living in a share house"* despite the success. Remedies like buying a physical alarm clock were deemed as valid[^3] however, I ended up on settling with just putting the charger on the other side of the bedroom giving me an average screen time of around 5.5 hours.
+Overall, this experiment does seem to indicate the validity of moving the charging port away from the bed. Furthermore, other benefits like better sleeping habits were also experienced. However, I was able to conjure some excuses like _"I need my phone as an alarm"_ and _"it'd be weird to use the common area to charge my phone living in a share house"_ despite the success. Remedies like buying a physical alarm clock were deemed as valid[^3] however, I ended up on settling with just putting the charger on the other side of the bedroom giving me an average screen time of around 5.5 hours.
 
 ### Black and White
+
 <div style="display: flex; flex-direction: column; width: 100%; align-items: center">
-    <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
-        <Image alt="normal image" width="500" src={normal} style={{ width: '50%', maxWidth: '300px' }}/>
-        <Image alt="greyscale image" width="500" src={greyscale} style={{ width: '50%', maxWidth: '300px' }}/>
-    </div>
-    <p>A normal vs greyscaled image</p>
+  <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
+    <Image
+      alt="normal image"
+      width="500"
+      src={normal}
+      style={{ width: "50%", maxWidth: "300px" }}
+    />
+    <Image
+      alt="greyscale image"
+      width="500"
+      src={greyscale}
+      style={{ width: "50%", maxWidth: "300px" }}
+    />
+  </div>
+  <p>A normal vs greyscaled image</p>
 </div>
 
 I saw a friend (Dean) with their phone in gray scale and asked if it had any benefit to reducing screen time. It was indicated that color being taken away would disincentivize phone usage as videos and images would seem more boring. So, from July 2024 to the end of August 2024, I switched my phone to grey monotone. This can be done in the settings app on iOS.
 
 Settings > Accessibility > Display & Text Size > Color Filters > Grayscale
 
-import ChartGreyscale from './ChartGreyscale.astro'
+import ChartGreyscale from "./ChartGreyscale.astro";
 
 <ChartGreyscale />
 
@@ -79,20 +97,36 @@ However, sometimes when I would show friends things on my phone or wanted to see
 Although grayscale did show some promise while also not holding me back from important tasks, it was slowly losing its effectiveness.
 
 ### Inverted Colours
+
 <div style="display: flex; flex-direction: column; width: 100%; align-items: center">
-    <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
-        <Image alt="normal image" width="500" src={normal} style={{ width: '33%', maxWidth: '300px' }}/>
-        <Image alt="inverted image" width="500" src={inverted} style={{ width: '33%', maxWidth: '300px' }}/>
-        <Image alt="inverted and greyscale image" width="500" src={stacked} style={{ width: '33%', maxWidth: '300px' }}/>
-    </div>
-    <p>normal vs inverted vs inverted + greyscaled</p>
+  <div style="display: flex; width: 100%; justify-content: center; gap: 2px">
+    <Image
+      alt="normal image"
+      width="500"
+      src={normal}
+      style={{ width: "33%", maxWidth: "300px" }}
+    />
+    <Image
+      alt="inverted image"
+      width="500"
+      src={inverted}
+      style={{ width: "33%", maxWidth: "300px" }}
+    />
+    <Image
+      alt="inverted and greyscale image"
+      width="500"
+      src={stacked}
+      style={{ width: "33%", maxWidth: "300px" }}
+    />
+  </div>
+  <p>normal vs inverted vs inverted + greyscaled</p>
 </div>
 
 For September of 2024, I landed on the idea of stacking both grayscale and inverted colours together in order to make me hate looking at my phone. Similar to where you find the settings for grayscale, you can turn on inverted colours on iOS through
 
 Settings > Accessibility > Display & Text Size > Classic Invert
 
-import ChartInverted from './ChartInverted.astro'
+import ChartInverted from "./ChartInverted.astro";
 
 <ChartInverted />
 
@@ -103,35 +137,36 @@ However, there were some real drawbacks like the inability for barcode or qrcode
 Inverting the screen colours is a great method for reducing screen time however, the frustration that comes with toggling it on and off to do some otherwise basic tasks had me yearning for October whereby I would switch back to normal colours.
 
 ### Deactivation
+
 Although deleting / deactivating all the problem apps from my phone and not forsaking my mother's teaching would be a wise decision (Mum was right; it is that damn phone), the lips of the apps seemed to drip honey with speech smoother than oil. So like an ox going to the slaughter, I caved. However, a friend of mine, Jonathan, was able to heed the rebuke of wisdom, able to say to her 'You are my sister'. Let's ask him about his experience deleting apps and his overall thoughts on the topic of screen time:
->
+
 > Aight so context before I even deleted it, I probably averaged like 2-4 hrs a day on insta snapchat facebook. I thought it was completely normal surrounded by everyone who did the same.
-> 
+>
 > Until I started talking to Nelson. We went to a uni ball and I was like 'did you get any ig's? show me' - and he's like 'nah I just get the digits.' To me this was honestly mind blowing that someone my age and whom I considered a peer much like myself had this approach on social interaction - especially when it comes to making connections. Phone numbers just felt wayyyy too personal.
-> 
+>
 > This was the seed that grew into where I am now. This seed sprouted with the conversations we had during work. I was just curious as to his perspective much like how you are inquiring me right now. He inherently knew that social media was a game he didn't want to play and once attached to these platforms, you had no choice but to stay. These billion even trillion dollar companies and mediums pay all these resources to garner attention - it's all an attention economy. And he hated the idea that although these platforms were 'enabling' human connection, it was in these moments of usage he felt the most loneliness.
-> 
+>
 > I agreed
-> 
+>
 > He extrapolated a lot of ideas from the book 'Digital Minimalism' by Cal Newport of which, he, like me at the time, journaled a lot of his thoughts about where he was in life and what his struggles were. So he challenged me to delete socials until I finished the book and evaluate whether or not I needed it in my life. At the end of it, I decided yeah I probably don't.
-> 
+>
 > During the time away, (it doesn't even feel like anything now, but at the time) truly my life felt like it was realigning with purpose and urgency; it's so easy to get distracted with what's important when you have every excuse and out to be discouraged first thing in the morning by opening Instagram and seeing that your day will be nothing as exciting as some others today. That shit messed with me the most.
-> 
+>
 > I thought this entire time it would be enabling me to see others and be involved in their lives but it was really restraining myself from enjoying and even acknowledging the opportunities I have in my own life. Everything important over time fizzled to the top, I was more conscious about social interaction than social appearance - precisely what these media companies were trying to get you to be concerned about; your social appearance and / or status. But why subscribe to that kind of game I wondered? All it does is make oneself more paranoid and self-conscious. The extremities of Instagram too is pretty damaging I thought - you see the best of the best in every field, sport athletes, models, smart academics etc etc comedians at their clipped video best. And when you see all these extremes of life, it's hard to appreciate everything that falls in between.
-> 
+>
 > Despite this understanding, I was still tempted back to Instagram by egoism. Trying to think of any reason other than ego about why you would share something online was an interesting thought experiment for me. I couldn't come to any conclusion other than mainly just egoism from my own personal experience.
-> 
-> I see the value in requesting help - but rarely do we see that on media. The only exception may be in the case of humble need. I, for one, have never done something like that and thus all my excuses to show others what I get up to isn't because I wanted to build a digital memoir or portfolio of my life, but to just show others that '*yeah I can compete with you guys in the highlights of life*' which was pretty astounding to become aware of.
-> 
+>
+> I see the value in requesting help - but rarely do we see that on media. The only exception may be in the case of humble need. I, for one, have never done something like that and thus all my excuses to show others what I get up to isn't because I wanted to build a digital memoir or portfolio of my life, but to just show others that '_yeah I can compete with you guys in the highlights of life_' which was pretty astounding to become aware of.
+>
 > I found it so interesting when people assume I saw their stories and knew what they did on a holiday or weekend. And it's just like wow that was me too. I thought I had all the attention in the attention ecosystem of my own Instagram but it's really not that deep!!!
-> 
+>
 > I also, way more than over text, enjoyed talking to the people I genuinely wanted to share experiences with in-person or over call. Being personable does make people feel more familiar, posting shit on Instagram makes them feel more alien.
-> 
+>
 > There are a multitude of implications of not having social media as an OUTLET: I looked towards books more for stimulation and my in own life, spent a lot more time min maxing my schedule so I wouldn't have so much time to be thinking about others, I think in this endeavour I was very consumed by myself ironically, but I think it's because when you are trying to initiate self growth, how else can it really start.
-> 
+>
 > I don't think my social life suffered. I had a lot of scheduled appointments like touch football, church 3x a week, school 5 days a week, saw family and friends often and had my work community. So yeah, the people who were in close proximity didn't feel far. For those who I would talk online with, important to me, I would still find a line of communication. So, it just made me see what and who was important, some were surprising disconnects and some others I found interesting that I wanted to be closer with.
 >
-> Overall thoughts: 
+> Overall thoughts:
 >
 > I think it's good to see both sides of the coin. Having no discernment is bad for this imo. I feel like I was brainwashed ngl.
 >
@@ -144,9 +179,10 @@ Although deleting / deactivating all the problem apps from my phone and not fors
 > <cite>- Jonathan</cite>
 
 ### Study Strims
+
 Jonathan's method of cutting off the hand that causes him to sin did seem like there were some real positive effects in regards to prioritization and mental clarity. On the other hand, my own aforementioned methods that were somewhat successful in decreasing phone screen time did not necessarily correspond to productive work replacing the extra free time. In fact, I would just spend more time on my laptop playing tetris and watching random youtube videos.
 
-import ChartLaptopPhone from './ChartLaptopPhone.astro'
+import ChartLaptopPhone from "./ChartLaptopPhone.astro";
 
 <ChartLaptopPhone />
 
@@ -157,24 +193,25 @@ However, I do have an insane technique to being productive; [study strims](https
 Despite the successes of study strims. It is not a silver bullet. One can always just end the stream prematurely and go back to dilly-dallying. Furthermore, if I don't want to draw thumbnails, then I have no motivation to start.
 
 ## Conclusion
+
 If I had to give an rating out of 10 for each of the techniques with respect to how it encourages you to be more productive while also considering their pitfalls, it would be as follows;
 
-import ChartOverall from './ChartOverall.astro'
+import ChartOverall from "./ChartOverall.astro";
 
 <ChartOverall />
 
-It should be noted that these techniques do not need to be used in isolation. Combining them to better spur you on to productivity and being more in tune with yourself is more effective but it should be noted that all these external procedures do not aid in improving one's internal resilience. 
+It should be noted that these techniques do not need to be used in isolation. Combining them to better spur you on to productivity and being more in tune with yourself is more effective but it should be noted that all these external procedures do not aid in improving one's internal resilience.
 
-As a parting note and something to think about, future studies specifically targeted at building mental strength could be explored. 
+As a parting note and something to think about, future studies specifically targeted at building mental strength could be explored.
 
-> "*The body should be treated more rigorously, that it may not be disobedient to the mind.*" - <cite>Seneca: Letters from a Stoic</cite>
+> "_The body should be treated more rigorously, that it may not be disobedient to the mind._" - <cite>Seneca: Letters from a Stoic</cite>
 
 ## FootNotes
-[^1]: [	Fyodor Dostoevsky: Crime and Punishment (1866) ](https://en.wikipedia.org/wiki/Crime_and_Punishment)
+
+[^1]: [ Fyodor Dostoevsky: Crime and Punishment (1866) ](https://en.wikipedia.org/wiki/Crime_and_Punishment)
 
 [^2]: [ Porter Robinson - KNOCK YOURSELF OUT XD ](https://youtu.be/lzMkFIw8ETM?t=16)
 
 [^3]: [ Pirate Software: Go To Sleep ](https://youtu.be/iHfFiD4QGE0)
 
 [^4]: [ Pikat: Value Studies ](https://youtu.be/JWTcTUNXcOg)
-
