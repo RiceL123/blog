@@ -28,14 +28,14 @@ const posts = (await getCollection("blog")).sort(
           This is my blog whereby I write about anything under the sun that I
           find interesting.
         </p>
-        <p class="font-bold mb-0">This may include:</p>
+        <p class="font-bold !mb-0">This may include:</p>
         <ul>
           <li>Silly experiments</li>
           <li>Devlogs</li>
           <li>Recounts</li>
           <li>Unfinished work</li>
         </ul>
-        <p class="font-bold mb-0">This will not include:</p>
+        <p class="font-bold !mb-0">This will not include:</p>
         <ul>
           <li>Infallible takes (all subjective assertions are open change)</li>
           <li>todo!("finish this landing page")</li>
@@ -48,12 +48,12 @@ const posts = (await getCollection("blog")).sort(
       </div>
       <div style="width: 400px; margin-top: 50px">
         <h2>Blogs</h2>
-        <a class="no-underline hover:underline" href="/blog">All Blogs ></a>
+        <a class="no-underline hover:underline" href="/blog">All Blogs &gt;</a>
         <h3>Recent</h3>
         <ul class="mb-10">
           {
             posts.map((post) => (
-              <li class="group border-b py-2">
+              <li class="group border-b border-gray-300 py-2">
                 <a
                   style="font-size: smaller;"
                   href={`/blog/${post.id}/`}
