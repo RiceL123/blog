@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build --remote",
     "devRemote": "astro dev --remote",
     "startRemote": "astro dev --remote",
     "preview": "astro preview"
