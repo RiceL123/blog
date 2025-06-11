@@ -20,7 +20,7 @@ const posts = (await getCollection("blog")).sort(
   <body>
     <Header />
     <main class="mx-auto w-[960px]">
-      <ul class="flex flex-wrap gap-4 list-none p-0">
+      <ul class="flex flex-wrap gap-4 !list-none p-0">
         {
           posts.map((post, index) => (
             <li
@@ -37,14 +37,14 @@ const posts = (await getCollection("blog")).sort(
                     height={360}
                     src={post.data.heroImage}
                     alt=""
-                    class={`mb-2 rounded-lg shadow transition-all group-hover:shadow-xl ${
+                    class={`mb-2 rounded-lg shadow transition-all group-hover:shadow-xl aspect-video ${
                       index === 0 ? "w-full" : "h-64 object-cover"
                     }`}
                   />
                 </div>
                 <h4
-                  class={`font-bold leading-tight transition-colors group-hover:text-accent ${
-                    index === 0 ? "text-4xl font-light" : "text-lg"
+                  class={`font-bold leading-tight transition-colors group-hover:text-shadow-lg ${
+                    index === 0 ? "text-4xl font-bold" : "text-lg"
                   }`}
                 >
                   {post.data.title}
