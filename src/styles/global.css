@@ -74,10 +74,10 @@ a:hover {
   color: var(--accent);
 }
 p {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 .prose p {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 textarea {
   width: 100%;
@@ -119,7 +119,7 @@ pre > code {
 blockquote {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 20px;
-  margin: 0px;
+  margin: 10px 0px;
   font-size: 1em;
 }
 hr {

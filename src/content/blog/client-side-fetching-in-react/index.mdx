@@ -1,0 +1,188 @@
+---
+title: "Client-side Fetching in React"
+description: "Exploring alternatives to fetching in Effects in React v19"
+pubDate: "11 July 2025"
+heroImage: "/react-client-side-fetching.webp"
+---
+
+## Introduction
+Data fetching is a crucial part of any application including [React](https://react.dev) apps. While server components is an interesting area to explore, for the sake of brevity, we will just focus on client-side fetching where data is just needed once on mount handling loading, error and success states. We will assess the classic method of `fetch` inside an Effect and determine if it is an outdated approach by comparing it to other common strategies.
+## Methods
+We will use the same simple HTTP GET request from a cat facts API for each.
+- [useEffect](#useeffect)
+  - [custom hook](#custom-hook)
+- [Suspense + use](#suspense--use)
+- [Tanstack Query](#tanstack-query)
+
+### useEffect
+Using the [`useEffect`](https://react.dev/reference/react/useEffect) hook with an empty dependency array (`[]`) is the classic way to fetch data once on mount.
+
+```jsx
+import { useState, useEffect } from "react";
+
+const CAT_FACT_URL = "https://catfact.ninja/fact";
+
+export default function App() {
+  const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [catFact, setCatFact] = useState(null);
+
+  useEffect(() => {
+    async function fetchCatFacts() {
+      setIsLoading(true);
+      fetch(CAT_FACT_URL)
+        .then((res) => res.json())
+        .then((json) => setCatFact(json.fact))
+        .catch(() => setIsError(true))
+        .finally(() => setIsLoading(false));
+    }
+
+    fetchCatFacts();
+  }, []); // empty dependency array to run once on mount
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error...</p>;
+  return <p>{catFact}</p>;
+}
+```
+
+> **Note**:
+> You may see a double render and/or 2 requests in the network tab in development due to React's `StrictMode`. This is expected as `StrictMode` is designed to help catch potential issues so please don't remove it. In production, it will only fetch once.
+
+- Works with vanilla React v16.8+ (Feb 2019)
+- Provides full control over the fetching process
+- Manual state management of loading, error and success
+#### Custom Hook
+To improve code organisation and reusability, we can extract the fetching logic to a custom hook.
+
+```jsx
+import { useState, useEffect } from "react";
+
+const CAT_FACT_URL = "https://catfact.ninja/fact";
+
+function useFetchCatFact() {
+  const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [catFact, setCatFact] = useState(null);
+
+  useEffect(() => {
+    async function fetchCatFacts() {
+      setIsLoading(true);
+      fetch(CAT_FACT_URL)
+        .then((res) => res.json())
+        .then((json) => setCatFact(json.fact))
+        .catch(() => setIsError(true))
+        .finally(() => setIsLoading(false));
+    }
+
+    fetchCatFacts();
+  }, []); // empty dependency array to run once on mount
+
+  return { isError, isLoading, catFact };
+}
+
+export default function App() {
+  const { isError, isLoading, catFact } = useFetchCatFact();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error...</p>;
+  return <p>{catFact}</p>;
+}
+```
+
+> **Note**:
+> Custom Hooks require 'use' as a prefix (e.g. `useCatFact`)
+
+- Works with vanilla React v16.8+ (Feb 2019)
+- Separation of fetching and UI logic
+- Reusable hooks across components
+- Manual state management of loading, error and success
+### Suspense + use
+The [`React.use`](https://react.dev/reference/react/use) API was introduced in [React v19](https://react.dev/blog/2024/12/05/react-19#new-feature-use) to read resources in render. When `use` is passed a promise, React will [Suspend](https://react.dev/reference/react/Suspense) until that promise resolves.
+
+```jsx
+import { Suspense, use } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
+const CAT_FACT_URL = "https://catfact.ninja/fact";
+
+function CatFact({ catFactPromise }) {
+  const catFact = use(catFactPromise);
+  return <p>{catFact}</p>;
+}
+
+export default function App() {
+  const catFactPromise = fetch(CAT_FACT_URL)
+    .then((res) => res.json())
+    .then((json) => json.fact);
+
+  return (
+    <ErrorBoundary fallback={<p>Error...</p>}>
+      <Suspense fallback={<p>Loading...</p>}>
+        <CatFact catFactPromise={catFactPromise} />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+```
+
+> **Note**:
+> - Suspense does not detect when data is fetched inside an Effect or event handler - it's designed for resources consumed directly during render
+> - `React.use` does not support promises created in render. The promise should be stable
+
+- Works with vanilla React v19+ (Dec 2024)
+- Idiomatically integrates with built-in `Suspense` for declarative loading states
+- Leverages modern React concurrent rendering capabilities
+- Requires an `ErrorBoundary` or alternative value with `Promise.catch` for [rejected promises](https://react.dev/reference/react/use#dealing-with-rejected-promises)
+### TanStack Query
+[TanStack Query](https://tanstack.com/query) (formerly `react-query`) is a full-featured asynchronous state manager. It has been an incredibly popular solution for both serious and simple application with its robust feature set.
+
+```jsx
+import { useQuery } from "@tanstack/react-query";
+
+const CAT_FACT_URL = "https://catfact.ninja/fact";
+
+function useCatFact() {
+  return useQuery({
+    queryKey: ["cat-fact"],
+    queryFn: async () =>
+      fetch(CAT_FACT_URL)
+        .then((res) => res.json())
+        .then((json) => json.fact),
+  });
+}
+
+export default function App() {
+  const { data, isLoading, isError } = useCatFact();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error...</p>;
+  return <p>{data}</p>;
+}
+```
+
+> **Note**:
+> Tanstack Query requires a `<QueryClientProvider>` to be set up higher in the component tree to manage the cache for your queries
+
+- Comprehensive set of features for caching, refetching, pagination, background updates and more
+- Automatic state management for handling loading error success states
+- Performance optimisation with caching and parallel queries
+- ~13kb bundle size
+## Conclusion
+Choosing the right data fetching strategy for simple fetch once on render queries depends on multiple circumstances
+- **`useEffect`**: manually manage state
+- **`Suspense` + `use`**: idiomatic and performant React v19+
+- **TanStack Query**: great external library for both simple and serious apps
+
+Overall, I would recommend avoiding using `fetch` in `useEffect` and instead would point you to the `use` API or external libraries.
+
+If you would a demo of the code it is available [here](https://github.com/ricel123/react-client-side-fetching)
+
+## Footnotes
+- [useEffect](https://react.dev/reference/react/useEffect)
+- [custom hooks](https://react.dev/learn/reusing-logic-with-custom-hooks)
+- [React v16.8: The One With Hooks](https://legacy.reactjs.org/blog/2019/02/06/react-v16.8.0.html)
+- [Suspense](https://react.dev/reference/react/Suspense)
+- [use](https://react.dev/reference/react/use)
+- [React v19](https://react.dev/blog/2024/12/05/react-19)
+- [TanStack Query](https://tanstack.com/query/latest)
